@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Company Profile renders a snapshot 1`] = `
+<div>
+  <div
+    class="CompanyProfile"
+  >
+    <header
+      class="CompanyProfile-header"
+    >
+      <h1>
+        Company Profile
+      </h1>
+    </header>
+  </div>
+</div>
+`;

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Portfolio renders a snapshot 1`] = `
+<div>
+  <div>
+    <h2>
+      Hello!
+    </h2>
+    <span>
+      The portfolio
+      <p>
+        is not yet loaded.
+      </p>
+    </span>
+    <button
+      type="button"
+    >
+      Alert!
+    </button>
+  </div>
+</div>
+`;
