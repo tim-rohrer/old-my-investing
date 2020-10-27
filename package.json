@@ -26,6 +26,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "test-coverage": "jest --coverage",
+    "type-check": "tsc",
+    "linter": "eslint src --ext ts --fix",
     "eslint:check": "eslint --print-config src/index.ts | eslint-config-prettier-check"
   },
   "eslintConfig": {

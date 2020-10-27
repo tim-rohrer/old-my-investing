@@ -1,5 +1,4 @@
-declare module 'pdf2json' {
-
+declare module "pdf2json" {
   interface PDFParser {
     PdfParser: any;
   }

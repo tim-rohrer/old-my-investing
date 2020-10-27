@@ -1,14 +1,14 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice'
-import portfolioReducer from '../features/portfolio/portfolioSlice'
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import counterReducer from "../features/counter/counterSlice";
+import portfolioReducer from "../features/portfolio/portfolioSlice";
 
 export const reducer = {
   counter: counterReducer,
-  portfolio: portfolioReducer
-}
+  portfolio: portfolioReducer,
+};
 
 export const store = configureStore({
-  reducer
+  reducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -17,4 +17,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   RootState,
   unknown,
   Action<string>
->
+>;

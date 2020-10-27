@@ -1,53 +1,67 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  SerializedError,
+} from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
-import QuickenDataExtractor from "quicken-data-extractor";
+import { QuickenDataExtractor } from "quicken-data-extractor";
 
-interface QuickenConnectionState {
-  isLoaded: boolean;
+export interface QuickenConnectionState {
+  loading: "idle" | "pending";
+  currentRequestId: string | undefined;
+  error: SerializedError | null;
   data: { [table: string]: any };
 }
 
 const initialState: QuickenConnectionState = {
-  isLoaded: false,
+  loading: "idle",
+  currentRequestId: undefined,
+  error: null,
   data: {},
 };
+
+export const fetchQuickenData = createAsyncThunk(
+  "quickenConnection/fetchQuickenData",
+  async () => {
+    const extractor = new QuickenDataExtractor("data.sqlite3");
+    const results = await extractor.fetchAndMigrateQuickenData();
+    return results;
+  }
+);
 
 export const quickenConnectionSlice = createSlice({
   name: "quickenConnection",
   initialState,
-  reducers: {
-    quickenDataIsLoaded: (state) => {
-      return {
-        ...state,
-        isLoaded: true,
-      };
-    },
-    holdingIsAdded: (state, action) => {
-      let symbol = action.payload.symbol.toUpperCase();
-      return {
-        ...state,
-        [symbol]: {
-          symbol: symbol,
-          name: action.payload.name,
-        },
-      };
-    },
-    holdingIsRemoved: (state, action) => {
-      let symbol = action.payload.toUpperCase();
-
-      return {
-        ...state,
-      };
-    },
-  },
+  reducers: {},
+  extraReducers: (builder) =>
+    builder
+      .addCase(fetchQuickenData.pending, (state, action) => {
+        return {
+          ...state,
+          currentRequestId: action.meta.requestId,
+          loading: "pending",
+        };
+      })
+      .addCase(fetchQuickenData.fulfilled, (state, action) => {
+        return {
+          ...state,
+          loading: "idle",
+          currentRequestId: undefined,
+          data: action.payload,
+        };
+      })
+      .addCase(fetchQuickenData.rejected, (state, action) => {
+        return {
+          ...state,
+          loading: "idle",
+          error: action.error,
+          data: {},
+        };
+      }),
 });
 
 // Actions
-export const {
-  quickenDataIsLoaded,
-  holdingIsAdded,
-  holdingIsRemoved,
-} = quickenConnectionSlice.actions;
+// export const {} = quickenConnectionSlice.actions;
 
 // Thunks
 

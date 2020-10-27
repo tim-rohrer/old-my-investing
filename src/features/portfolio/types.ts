@@ -1,6 +1,6 @@
-export type SecuritySymbol = string
+export type SecuritySymbol = string;
 
 export interface Holding {
-    securitySymbol: SecuritySymbol
-    name: string
+  securitySymbol: SecuritySymbol;
+  name: string;
 }
