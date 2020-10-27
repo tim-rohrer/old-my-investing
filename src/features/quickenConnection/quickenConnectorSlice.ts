@@ -6,14 +6,14 @@ import {
 import { AppThunk, RootState } from "../../app/store";
 import { QuickenDataExtractor } from "quicken-data-extractor";
 
-export interface QuickenConnectionState {
+export interface quickenConnectorState {
   loading: "idle" | "pending";
   currentRequestId: string | undefined;
   error: SerializedError | null;
   data: { [table: string]: any };
 }
 
-const initialState: QuickenConnectionState = {
+const initialState: quickenConnectorState = {
   loading: "idle",
   currentRequestId: undefined,
   error: null,
@@ -21,7 +21,7 @@ const initialState: QuickenConnectionState = {
 };
 
 export const fetchQuickenData = createAsyncThunk(
-  "quickenConnection/fetchQuickenData",
+  "quickenConnector/fetchQuickenData",
   async () => {
     const extractor = new QuickenDataExtractor("data.sqlite3");
     const results = await extractor.fetchAndMigrateQuickenData();
@@ -29,8 +29,8 @@ export const fetchQuickenData = createAsyncThunk(
   }
 );
 
-export const quickenConnectionSlice = createSlice({
-  name: "quickenConnection",
+export const quickenConnectorSlice = createSlice({
+  name: "quickenConnector",
   initialState,
   reducers: {},
   extraReducers: (builder) =>
@@ -61,7 +61,7 @@ export const quickenConnectionSlice = createSlice({
 });
 
 // Actions
-// export const {} = quickenConnectionSlice.actions;
+// export const {} = quickenConnectorSlice.actions;
 
 // Thunks
 
@@ -69,4 +69,4 @@ export const quickenConnectionSlice = createSlice({
 // export const selectPortfolioLoadedStatus = (state: RootState) => state.portfolio.isLoaded
 
 // Default export
-export default quickenConnectionSlice.reducer;
+export default quickenConnectorSlice.reducer;

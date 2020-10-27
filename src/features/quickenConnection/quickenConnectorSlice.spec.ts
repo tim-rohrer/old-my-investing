@@ -1,8 +1,8 @@
 import { cleanup } from "../../test-utils";
-import quickenConnection, {
+import quickenConnector, {
   fetchQuickenData,
-  QuickenConnectionState,
-} from "./quickenConnectionSlice";
+  quickenConnectorState,
+} from "./quickenConnectorSlice";
 import quickenExtractorTestData from "./quickendData.fixture";
 
 afterEach(cleanup);
@@ -10,7 +10,7 @@ afterEach(cleanup);
 describe("Quicken Connection", () => {
   describe("Reducer", () => {
     it("should return the initial state", () => {
-      expect(quickenConnection(undefined, { type: "@@INIT" } as any)).toEqual({
+      expect(quickenConnector(undefined, { type: "@@INIT" } as any)).toEqual({
         loading: "idle",
         currentRequestId: undefined,
         error: null,
@@ -19,9 +19,9 @@ describe("Quicken Connection", () => {
     });
   });
 
-  //   it("should handle quickenConnectionIsLoaded", () => {
+  //   it("should handle quickenConnectorIsLoaded", () => {
   //     expect(
-  //       quickenConnection({} as any, {
+  //       quickenConnector({} as any, {
   //         type: quickenDataIsLoaded,
   //         payload: true,
   //       })
@@ -29,7 +29,7 @@ describe("Quicken Connection", () => {
   //   })
   describe("ExtraReducers/Quicken Data/fetchQuickenData", () => {
     it("should handle a pending request", () => {
-      const testState: QuickenConnectionState = {
+      const testState: quickenConnectorState = {
         loading: "idle",
         currentRequestId: undefined,
         error: null,
@@ -37,7 +37,7 @@ describe("Quicken Connection", () => {
       };
       const testAction = fetchQuickenData.pending("myId");
 
-      const actual = quickenConnection(testState as any, testAction);
+      const actual = quickenConnector(testState as any, testAction);
 
       expect(actual).toStrictEqual({
         loading: "pending",
@@ -47,7 +47,7 @@ describe("Quicken Connection", () => {
       });
     });
     it("should handle a fullfilled request", () => {
-      const testState: QuickenConnectionState = {
+      const testState: quickenConnectorState = {
         loading: "pending",
         currentRequestId: "myId",
         error: null,
@@ -58,13 +58,13 @@ describe("Quicken Connection", () => {
         "myId"
       );
 
-      const actual = quickenConnection(testState as any, testAction);
+      const actual = quickenConnector(testState as any, testAction);
 
       expect(actual.loading).toStrictEqual("idle");
       expect(actual.data).toHaveProperty("ZACCOUNT");
     });
     it("should handle a rejected request", () => {
-      const testState: QuickenConnectionState = {
+      const testState: quickenConnectorState = {
         loading: "pending",
         currentRequestId: "myId",
         error: null,
@@ -73,7 +73,7 @@ describe("Quicken Connection", () => {
 
       const testAction = fetchQuickenData.rejected(new Error(), "myId");
 
-      const actual = quickenConnection(testState as any, testAction);
+      const actual = quickenConnector(testState as any, testAction);
 
       expect(actual.loading).toStrictEqual("idle");
       expect(actual.data).toMatchObject({});
