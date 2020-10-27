@@ -15,7 +15,7 @@ exports[`Portfolio renders a snapshot 1`] = `
     <button
       type="button"
     >
-      Alert!
+      Load Quicken Data
     </button>
   </div>
 </div>

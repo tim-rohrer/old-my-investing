@@ -1,32 +1,29 @@
-import React from "react"
-import { selectPortfolioLoadedStatus } from "./portfolioSlice"
-import { useSelector } from "react-redux"
-import Button from "../../common/Button"
-
-export const callAlert = () => {
-    alert("Here!")
-}
+import React from "react";
+import { selectPortfolioLoadedStatus } from "./portfolioSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Button from "../../common/Button";
+import { fetchQuickenData } from "../quickenConnection/quickenConnectorSlice";
+import { AppDispatch } from "../../app/store";
 
 function Portfolio() {
+  const callAlert = () => {
+    dispatch(fetchQuickenData());
+  };
 
-    let isPortfolioLoaded = useSelector(selectPortfolioLoadedStatus)
+  let isPortfolioLoaded = useSelector(selectPortfolioLoadedStatus);
 
-    return (
-        <div>
-            <h2>Hello!</h2>
-            <span>The portfolio
-                {
-                    isPortfolioLoaded
-                    ?
-                    <p> is loaded.</p>
-                    :
-                    <p>is not yet loaded.</p>
-                }
-            </span>
-            <Button onClick={() => callAlert()}>Alert!</Button>
-        </div>
-    )
+  const dispatch: AppDispatch = useDispatch();
 
+  return (
+    <div>
+      <h2>Hello!</h2>
+      <span>
+        The portfolio
+        {isPortfolioLoaded ? <p> is loaded.</p> : <p>is not yet loaded.</p>}
+      </span>
+      <Button onClick={() => callAlert()}>Load Quicken Data</Button>
+    </div>
+  );
 }
 
-export default Portfolio
+export default Portfolio;

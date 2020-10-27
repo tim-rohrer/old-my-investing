@@ -23,6 +23,7 @@ const initialState: quickenConnectorState = {
 export const fetchQuickenData = createAsyncThunk(
   "quickenConnector/fetchQuickenData",
   async () => {
+    debugger;
     const extractor = new QuickenDataExtractor("data.sqlite3");
     const results = await extractor.fetchAndMigrateQuickenData();
     return results;
