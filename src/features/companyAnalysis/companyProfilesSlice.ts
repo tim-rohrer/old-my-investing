@@ -2,7 +2,11 @@ import { SecuritySymbol } from "../portfolio/types";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { fetchFMPData } from "./fmpUtilities";
-import { FMPRequestObject } from "./types";
+
+export interface FMPRequestObject {
+  requestType: "companyProfile";
+  securitySymbol: Array<SecuritySymbol>;
+}
 
 // Setup
 interface CompanyProfilesState {
@@ -38,35 +42,32 @@ export const companyProfilesSlice = createSlice({
   name: "companyProfiles",
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(fetchFMPCompanyProfileBySymbol.pending, (state, action) => {
-      if (state.loading === "idle") {
-        return {
-          ...state,
-          loading: "pending",
-          currentRequestId: action.meta.requestId,
-        };
-      }
-    }),
-      builder.addCase(
-        fetchFMPCompanyProfileBySymbol.fulfilled,
-        (state, action) => {
-          const securitySymbol: SecuritySymbol = action.payload.symbol;
+  extraReducers: (builder) =>
+    builder
+      .addCase(fetchFMPCompanyProfileBySymbol.pending, (state, action) => {
+        if (state.loading === "idle") {
           return {
             ...state,
-            profiles: {
-              ...state.profiles,
-              [securitySymbol]: {
-                securitySymbol: securitySymbol,
-                fmpProfile: action.payload,
-              },
-            },
-            loading: "idle",
-            currentRequestId: undefined,
+            loading: "pending",
+            currentRequestId: action.meta.requestId,
           };
         }
-      );
-  },
+      })
+      .addCase(fetchFMPCompanyProfileBySymbol.fulfilled, (state, action) => {
+        const securitySymbol: SecuritySymbol = action.payload.symbol;
+        return {
+          ...state,
+          profiles: {
+            ...state.profiles,
+            [securitySymbol]: {
+              securitySymbol: securitySymbol,
+              fmpProfile: action.payload,
+            },
+          },
+          loading: "idle",
+          currentRequestId: undefined,
+        };
+      }),
 });
 
 // Actions

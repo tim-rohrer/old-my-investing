@@ -35,7 +35,7 @@ describe("Quicken Connection", () => {
         error: null,
         data: {},
       };
-      const testAction = fetchQuickenData.pending("myId", "");
+      const testAction = fetchQuickenData.pending("myId");
 
       const actual = quickenConnection(testState as any, testAction);
 
@@ -55,8 +55,7 @@ describe("Quicken Connection", () => {
       };
       const testAction = fetchQuickenData.fulfilled(
         quickenExtractorTestData,
-        "myId",
-        ""
+        "myId"
       );
 
       const actual = quickenConnection(testState as any, testAction);
@@ -72,7 +71,7 @@ describe("Quicken Connection", () => {
         data: {},
       };
 
-      const testAction = fetchQuickenData.rejected(new Error(), "myId", "");
+      const testAction = fetchQuickenData.rejected(new Error(), "myId");
 
       const actual = quickenConnection(testState as any, testAction);
 

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
-import { Holding, TickerSymbol } from "./types";
+import { Holding } from "./types";
 
 interface PortfolioState {
   isLoaded: boolean;

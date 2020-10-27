@@ -1,12 +1,11 @@
 import { cleanup } from "../../test-utils";
 import companyProfiles, {
   fetchFMPCompanyProfileBySymbol,
-  companyProfileFMPAdded,
+  FMPRequestObject,
 } from "./companyProfilesSlice";
 import * as functions from "./companyProfilesSlice";
 import nock from "nock";
 import axios from "axios";
-import { FMPRequestObject } from "./types";
 
 // const fetchBySymbol: jest.Mock = require('companyProfilesSlice').fetchBySymbol;
 
@@ -53,9 +52,17 @@ describe("Company Profiles", () => {
           currentRequestId: undefined,
           error: null,
         };
-        const testAction = fetchFMPCompanyProfileBySymbol.pending("myId", "");
+        const testRequestPackage: FMPRequestObject = {
+          requestType: "companyProfile",
+          securitySymbol: ["AAPL"],
+        };
+        const testAction = fetchFMPCompanyProfileBySymbol.pending(
+          "myId",
+          testRequestPackage
+        );
+
         const actual = functions.companyProfilesSlice.reducer(
-          <any>testState,
+          testState as any,
           testAction
         );
 
@@ -73,17 +80,23 @@ describe("Company Profiles", () => {
           currentRequestId: "myId",
           error: null,
         };
+        const testRequestPackage: FMPRequestObject = {
+          requestType: "companyProfile",
+          securitySymbol: ["AAPL"],
+        };
         const testAction = fetchFMPCompanyProfileBySymbol.fulfilled(
           mockFMPCompanyProfileApple,
           "",
-          "AAPL"
+          testRequestPackage
         );
         // console.log(action)
+
         const actual = functions.companyProfilesSlice.reducer(
-          <any>testState,
+          testState as any,
           testAction
         );
         // console.log("Test Result", actual)
+
         expect(actual).toStrictEqual({
           profiles: {
             AAPL: {
@@ -96,10 +109,11 @@ describe("Company Profiles", () => {
           error: null,
         });
       });
-      it("should handle the rejectWithValue(value) promise response", () => {
-        const action = fetchFMPCompanyProfileBySymbol("AAPL");
-        // console.log(action)
-      });
+      /** @TODO Implement test for rejected */
+      // TODO: it("should handle the rejectWithValue(value) promise response", () => {
+      //   const action = fetchFMPCompanyProfileBySymbol("AAPL");
+      //   // console.log(action)
+      // });
     });
   });
   // describe('Company Profile Thunk', ()=> {

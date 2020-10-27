@@ -4,7 +4,7 @@
  */
 import { SecuritySymbol } from "../portfolio/types";
 import axios from "axios";
-import { FMPRequestObject } from "./types";
+import { FMPRequestObject } from "./companyProfilesSlice";
 
 export async function fetchFMPData(requestObject: FMPRequestObject) {
   let { requestType, securitySymbol } = requestObject;
@@ -21,6 +21,7 @@ export async function fetchFMPData(requestObject: FMPRequestObject) {
       return result.data;
     } else return "Hello";
   } catch (error) {
+    console.log("Error: ", error);
     return error;
   }
 }
