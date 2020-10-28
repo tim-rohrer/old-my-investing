@@ -1,6 +1,6 @@
 import React from "react";
 import { render, cleanup } from "../../test-utils";
-import Portfolio, { callAlert } from "./Portfolio";
+import Portfolio from "./Portfolio";
 import Button from "../../common/Button";
 
 afterEach(cleanup);

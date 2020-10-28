@@ -2,8 +2,8 @@ import React from "react";
 import { selectPortfolioLoadedStatus } from "./portfolioSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../common/Button";
-import { fetchQuickenData } from "../quickenConnection/quickenConnectorSlice";
 import { AppDispatch } from "../../app/store";
+import { fetchQuickenData } from "../quickenConnector/quickenConnectorSlice";
 
 function Portfolio() {
   const callAlert = () => {

@@ -3,8 +3,8 @@ import {
   createSlice,
   SerializedError,
 } from "@reduxjs/toolkit";
-import { AppThunk, RootState } from "../../app/store";
-import { QuickenDataExtractor } from "quicken-data-extractor";
+import axios from "axios";
+// import { AppThunk, RootState } from "../../app/store";
 
 export interface quickenConnectorState {
   loading: "idle" | "pending";
@@ -23,10 +23,12 @@ const initialState: quickenConnectorState = {
 export const fetchQuickenData = createAsyncThunk(
   "quickenConnector/fetchQuickenData",
   async () => {
-    debugger;
-    const extractor = new QuickenDataExtractor("data.sqlite3");
-    const results = await extractor.fetchAndMigrateQuickenData();
-    return results;
+    const rqstPackage = { apiKey: "a12345" };
+    const response = await axios.post(
+      "http://localhost:3001/api/fetch",
+      rqstPackage
+    );
+    return response.data;
   }
 );
 
