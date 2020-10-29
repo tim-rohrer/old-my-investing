@@ -11,6 +11,15 @@ exports[`App renders a snapshot 1`] = `
       <h1>
         My Investing
       </h1>
+      <label
+        for="search"
+      >
+        Search: 
+      </label>
+      <input
+        id="search"
+        type="text"
+      />
     </header>
     <div>
       <h2>
