@@ -1,9 +1,8 @@
-import React from 'react';
-import './App.css';
-import Portfolio from './features/portfolio/Portfolio';
+import React from "react";
+import "./App.css";
+import Portfolio from "./features/portfolio/Portfolio";
 
 function App() {
-
   return (
     <div className="App">
       <header className="App-header">

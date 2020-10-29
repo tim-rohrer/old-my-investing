@@ -1,13 +1,12 @@
-import React from 'react'
-import { render, cleanup } from "../../test-utils"
-import CompanyProfile from './CompanyProfile'
+import React from "react";
+import { render, cleanup } from "../../test-utils";
+import CompanyProfile from "./CompanyProfile";
 
+afterEach(cleanup);
 
-afterEach(cleanup)
-
-describe('Company Profile', () => {
-    it('renders a snapshot', () => {
-        const { container } = render(<CompanyProfile />)
-        expect(container).toMatchSnapshot()
-    })
-})
+describe("Company Profile", () => {
+  it("renders a snapshot", () => {
+    const { container } = render(<CompanyProfile />);
+    expect(container).toMatchSnapshot();
+  });
+});
