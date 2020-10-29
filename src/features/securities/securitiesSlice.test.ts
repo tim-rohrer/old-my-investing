@@ -25,7 +25,7 @@ describe("Securities", () => {
   };
   describe("Reducer", () => {
     it("should return the initial state", () => {
-      expect(securities(undefined, <any>{ type: "@@INIT" })).toEqual({
+      expect(securities(undefined, { type: "@@INIT" } as any)).toEqual({
         "": {
           securitySymbol: "",
           name: "",
@@ -44,7 +44,7 @@ describe("Securities", () => {
 
       let actionCreator = securityAdded;
 
-      let testResult = securities(<any>testState, actionCreator(testPayload));
+      let testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toMatchObject(expectedMatch);
     });
@@ -60,7 +60,7 @@ describe("Securities", () => {
 
       let actionCreator = securityAdded;
 
-      let testResult = securities(<any>testState, actionCreator(testPayload));
+      let testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toMatchObject(expectedMatch);
     });
@@ -80,7 +80,7 @@ describe("Securities", () => {
 
       let actionCreator = securityAdded;
 
-      let testResult = securities(<any>testState, actionCreator(testPayload));
+      let testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toStrictEqual(expectedMatch);
     });
@@ -104,7 +104,7 @@ describe("Securities", () => {
       };
       let actionCreator = securityUpdated;
 
-      let testResult = securities(<any>testState, actionCreator(testPayload));
+      let testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toStrictEqual(expectedMatch);
     });
@@ -129,7 +129,7 @@ describe("Securities", () => {
       };
       let actionCreator = securitySymbolChanged;
 
-      let testResult = securities(<any>testState, actionCreator(testPayload));
+      let testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toStrictEqual(expectedMatch);
     });
@@ -149,7 +149,7 @@ describe("Securities", () => {
       };
       let actionCreator = securityRemoved;
 
-      let testResult = securities(<any>testState, actionCreator(testPayload));
+      let testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toStrictEqual(expectedMatch);
     });
@@ -162,7 +162,7 @@ describe("Securities", () => {
       let expectedMatch = testState;
       let actionCreator = securityRemoved;
 
-      let testResult = securities(<any>testState, actionCreator(testPayload));
+      let testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toStrictEqual(expectedMatch);
     });

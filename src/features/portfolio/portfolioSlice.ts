@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AppThunk, RootState } from "../../app/store";
+import { RootState } from "../../app/store";
 import { Holding } from "./types";
 
 interface PortfolioState {
@@ -33,7 +33,7 @@ export const portfolioSlice = createSlice({
       };
     },
     holdingIsRemoved: (state, action) => {
-      let symbol = action.payload.toUpperCase();
+      // let symbol = action.payload.toUpperCase();
 
       return {
         ...state,

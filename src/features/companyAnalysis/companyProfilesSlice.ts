@@ -1,6 +1,5 @@
 import { SecuritySymbol } from "../portfolio/types";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { fetchFMPData } from "./fmpUtilities";
 
 export interface FMPRequestObject {
@@ -71,7 +70,7 @@ export const companyProfilesSlice = createSlice({
 });
 
 // Actions
-export const {} = companyProfilesSlice.actions;
+// export const {} = companyProfilesSlice.actions;
 
 // Thunks
 

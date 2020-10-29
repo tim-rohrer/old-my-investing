@@ -2,7 +2,6 @@
  * Financial Modeling Prep Utilities
  * @author Tim Rohrer
  */
-import { SecuritySymbol } from "../portfolio/types";
 import axios from "axios";
 import { FMPRequestObject } from "./companyProfilesSlice";
 

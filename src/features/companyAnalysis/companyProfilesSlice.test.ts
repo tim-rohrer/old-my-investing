@@ -4,8 +4,6 @@ import companyProfiles, {
   FMPRequestObject,
 } from "./companyProfilesSlice";
 import * as functions from "./companyProfilesSlice";
-import nock from "nock";
-import axios from "axios";
 
 // const fetchBySymbol: jest.Mock = require('companyProfilesSlice').fetchBySymbol;
 
@@ -37,7 +35,7 @@ describe("Company Profiles", () => {
   };
   describe("Reducer", () => {
     it("should return the initial state", () => {
-      expect(companyProfiles(undefined, <any>{ type: "@@INIT" })).toEqual({
+      expect(companyProfiles(undefined, { type: "@@INIT" } as any)).toEqual({
         profiles: {},
         loading: "idle",
         currentRequestId: undefined,

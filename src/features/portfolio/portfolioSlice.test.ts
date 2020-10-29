@@ -56,14 +56,14 @@ let state4 = {
 
 describe("Portfolio reducer", () => {
   it("should return the initial state", () => {
-    expect(portfolio(undefined, <any>{ type: "@@INIT" })).toEqual({
+    expect(portfolio(undefined, { type: "@@INIT" } as any)).toEqual({
       isLoaded: false,
       holdings: {},
     });
   });
   it("should handle portfolioIsLoaded", () => {
     expect(
-      portfolio(<any>{}, {
+      portfolio({} as any, {
         type: portfolioIsLoaded,
         payload: true,
       })
@@ -72,7 +72,7 @@ describe("Portfolio reducer", () => {
 
   it("should handle adding a holding (holdingIsAdded) even with lower case symbols", () => {
     expect(
-      portfolio(<any>state0, {
+      portfolio(state0 as any, {
         type: holdingIsAdded,
         payload: {
           symbol: "AMZ",
@@ -82,7 +82,7 @@ describe("Portfolio reducer", () => {
     ).toMatchObject(state1);
 
     expect(
-      portfolio(<any>state1, {
+      portfolio(state1 as any, {
         type: holdingIsAdded,
         payload: {
           symbol: "DKS",
@@ -92,7 +92,7 @@ describe("Portfolio reducer", () => {
     ).toMatchObject(state2);
 
     expect(
-      portfolio(<any>state2, {
+      portfolio(state2 as any, {
         type: holdingIsAdded,
         payload: {
           symbol: "lcii",
@@ -103,7 +103,7 @@ describe("Portfolio reducer", () => {
   });
   it("should handle removing a holding (holdingIsRemoved) from the portfolio", () => {
     expect(
-      portfolio(<any>state3, {
+      portfolio(state3 as any, {
         type: holdingIsRemoved,
         payload: "dks",
       })
