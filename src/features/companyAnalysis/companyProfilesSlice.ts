@@ -4,7 +4,7 @@ import { fetchFMPData } from "./fmpUtilities";
 
 export interface FMPRequestObject {
   requestType: "companyProfile";
-  securitySymbol: Array<SecuritySymbol>;
+  securitySymbol: SecuritySymbol;
 }
 
 // Setup
@@ -32,7 +32,7 @@ export const fetchFMPCompanyProfileBySymbol = createAsyncThunk(
   "companyProfiles/fetchStatus",
   async (fmpRequestObject: FMPRequestObject, thunkAPI) => {
     let res = await fetchFMPData(fmpRequestObject);
-    return res.data;
+    return res;
   }
 );
 

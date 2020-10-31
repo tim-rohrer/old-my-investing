@@ -1,6 +1,6 @@
 import React from "react";
 import { render, cleanup } from "../../test-utils";
-import CompanyProfile from "./CompanyProfile";
+import { CompanyProfile } from "./CompanyProfile";
 
 afterEach(cleanup);
 

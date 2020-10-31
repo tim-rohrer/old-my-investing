@@ -11,15 +11,6 @@ exports[`App renders a snapshot 1`] = `
       <h1>
         My Investing
       </h1>
-      <label
-        for="search"
-      >
-        Search: 
-      </label>
-      <input
-        id="search"
-        type="text"
-      />
     </header>
     <div>
       <h2>
@@ -36,6 +27,33 @@ exports[`App renders a snapshot 1`] = `
       >
         Load Quicken Data
       </button>
+    </div>
+    <div
+      class="CompanyProfile"
+    >
+      <header
+        class="CompanyProfile-header"
+      >
+        <h1>
+          Company Profile
+        </h1>
+        <form>
+          <label
+            for="tickerInput"
+          >
+            <strong>
+              Ticker: 
+            </strong>
+          </label>
+           
+          <input
+            id="tickerInput"
+            type="text"
+            value=""
+          />
+           
+        </form>
+      </header>
     </div>
   </div>
 </div>

@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import counterReducer from "../features/counter/counterSlice";
+import companyProfilesReducer from "../features/companyAnalysis/companyProfilesSlice";
 import portfolioReducer from "../features/portfolio/portfolioSlice";
 import quickenConnectorReducer from "../features/quickenConnector/quickenConnectorSlice";
 
 export const reducer = {
   counter: counterReducer,
+  companyProfiles: companyProfilesReducer,
   portfolio: portfolioReducer,
   quickenConnector: quickenConnectorReducer,
 };
