@@ -31,8 +31,9 @@ describe("FMP Utilities", () => {
     describe("fetchFMPData", () => {
       const scope = nock("https://financialmodelingprep.com")
         .defaultReplyHeaders({ "access-control-allow-origin": "*" })
-        .log(console.log);
-      const apiKey = process.env.FMP_API_KEY;
+        .persist();
+      // .log(console.log);
+      const apiKey = process.env.REACT_APP_FMP_API_KEY;
       const path = `/api/v3/company/profile/AAPL?apikey=${apiKey}`;
 
       it("handles a fmpRequestObject", async () => {
@@ -43,8 +44,9 @@ describe("FMP Utilities", () => {
           securitySymbol: "AAPL",
         };
         const actual = await fetchFMPData(fmpRequestObject);
-        console.log("Actual: ", actual);
-        expect(actual).toEqual(mockedFMPCompanyProfileApple);
+        expect(actual.profile.companyName).toEqual(
+          mockedFMPCompanyProfileApple.profile.companyName
+        );
       });
 
       it("handles return of securitySymbol", async () => {
@@ -65,12 +67,11 @@ describe("FMP Utilities", () => {
           requestType: "companyProfile",
           securitySymbol: "UNFOUND",
         };
-
-        scope
-          .get("/api/v3/company/profile/" + fmpRequestObject.securitySymbol[0])
-          .reply(200, {});
+        const path = `/api/v3/company/profile/${fmpRequestObject.securitySymbol}?apikey=${apiKey}`;
+        scope.get(path).reply(200, {});
 
         const actual = await fetchFMPData(fmpRequestObject);
+        // console.log(actual);
 
         expect(actual).toEqual("Hello");
       });

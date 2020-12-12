@@ -17,12 +17,12 @@ export async function fetchFMPData(requestObject: FMPRequestObject) {
   try {
     const apiKey = process.env.REACT_APP_FMP_API_KEY;
     url = url + `?apikey=${apiKey}`;
-    console.log(url);
     const result = await axios.get(url);
     if (Object.entries(result.data).length > 0) {
-      console.log(result.data);
       return result.data;
-    } else return "Hello";
+    } else {
+      return "Hello";
+    }
   } catch (error) {
     // console.log("Error: ", error);
     return error;
