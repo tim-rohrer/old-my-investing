@@ -32,7 +32,7 @@ describe("FMP Utilities", () => {
       const scope = nock("https://financialmodelingprep.com")
         .defaultReplyHeaders({ "access-control-allow-origin": "*" })
         .persist();
-      // .log(console.log);
+        // .log(console.log);
       const apiKey = process.env.REACT_APP_FMP_API_KEY;
       const path = `/api/v3/company/profile/AAPL?apikey=${apiKey}`;
 
@@ -70,23 +70,27 @@ describe("FMP Utilities", () => {
         const path = `/api/v3/company/profile/${fmpRequestObject.securitySymbol}?apikey=${apiKey}`;
         scope.get(path).reply(200, {});
 
-        const actual = await fetchFMPData(fmpRequestObject);
-        // console.log(actual);
-
-        expect(actual).toEqual("Hello");
+        expect.assertions(1);
+        try {
+          await fetchFMPData(fmpRequestObject);
+        } catch (e) {
+          // console.log(e.message);
+          expect(e.message).toEqual("Symbol not found");
+        }
       });
-      /** @todo Implement error handling from FMP */
-      // it("handles return of an error", async () => {
-      //   scope.get("/error").reply(404);
+      it("handles return of an error", async () => {
+        scope.get(path).reply(500);
 
-      //   const actual = await fetchFMPData({
-      //     requestType: "companyProfile",
-      //     securitySymbol: ["AAPL"],
-      //   });
-      //   console.log(actual);
-
-      //   expect(actual).toThrow();
-      // });
+        try {
+          await fetchFMPData({
+            requestType: "companyProfile",
+            securitySymbol: "AAPL",
+          });
+        } catch (e) {
+          // console.log(e);
+          expect(e.message).toEqual("Request failed with status code 500");
+        }
+      });
     });
   });
   describe("Company Valuation/Quote", () => {});

@@ -21,10 +21,9 @@ export async function fetchFMPData(requestObject: FMPRequestObject) {
     if (Object.entries(result.data).length > 0) {
       return result.data;
     } else {
-      return "Hello";
+      throw new Error("Symbol not found");
     }
   } catch (error) {
-    // console.log("Error: ", error);
-    return error;
+    throw error;
   }
 }
