@@ -28,11 +28,12 @@ describe("FMP Utilities", () => {
         image: "https://financialmodelingprep.com/images-New-jpg/AAPL.jpg",
       },
     };
+
     describe("fetchFMPData", () => {
       const scope = nock("https://financialmodelingprep.com")
         .defaultReplyHeaders({ "access-control-allow-origin": "*" })
         .persist();
-        // .log(console.log);
+
       const apiKey = process.env.REACT_APP_FMP_API_KEY;
       const path = `/api/v3/company/profile/AAPL?apikey=${apiKey}`;
 
@@ -62,6 +63,7 @@ describe("FMP Utilities", () => {
 
         expect(actual).toEqual(mockedFMPCompanyProfileApple);
       });
+
       it("handles a request of an unfound symbol", async () => {
         const fmpRequestObject: FMPRequestObject = {
           requestType: "companyProfile",
@@ -78,6 +80,7 @@ describe("FMP Utilities", () => {
           expect(e.message).toEqual("Symbol not found");
         }
       });
+
       it("handles return of an error", async () => {
         scope.get(path).reply(500);
 
