@@ -1,3 +1,4 @@
+// import { makeStyles } from "@material-ui/core";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../app/store";
@@ -7,6 +8,15 @@ import {
   FMPRequestObject,
   selectCompanyProfileError,
 } from "./companyProfilesSlice";
+
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     "& .MuiTextField-root": {
+//       margin: theme.spacing(1),
+//       width: 200,
+//     },
+//   },
+// }));
 
 export const CompanyProfile = () => {
   const [ticker, setTicker] = React.useState("");

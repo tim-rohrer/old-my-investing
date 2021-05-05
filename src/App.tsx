@@ -1,18 +1,22 @@
 import React from "react";
+import { Backdrop, CircularProgress } from "@material-ui/core";
 import "./App.css";
-import { CompanyProfile } from "./features/companyAnalysis/CompanyProfile";
-import Portfolio from "./features/portfolio/Portfolio";
+import Home from "./features/home/Home";
+import { useStyles } from "./common/useStyles";
 
-function App() {
+const App: React.FC<Record<any, any>> = () => {
+  const classes = useStyles();
+  // const isAppThinking = useSelector(selectAppIsThinking);
+  const isAppThinking = false;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>My Investing</h1>
-      </header>
-      <Portfolio />
-      <CompanyProfile />
+      <Home title="Stop Solver Demo" />
+      <Backdrop className={classes.backdrop} open={isAppThinking}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
-}
+};
 
 export default App;
