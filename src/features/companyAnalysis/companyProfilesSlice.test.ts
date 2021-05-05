@@ -33,22 +33,24 @@ describe("Company Profiles", () => {
       image: "https://financialmodelingprep.com/images-New-jpg/AAPL.jpg",
     },
   };
+
   describe("Reducer", () => {
     it("should return the initial state", () => {
       expect(companyProfiles(undefined, { type: "@@INIT" } as any)).toEqual({
         profiles: {},
         loading: "idle",
         currentRequestId: undefined,
-        error: null,
+        error: undefined,
       });
     });
+
     describe("extraReducers: fetchFMPCompanyProfileBySymbol", () => {
       it("should handle a pending request", () => {
         const testState = {
           profiles: {},
           loading: "idle",
           currentRequestId: undefined,
-          error: null,
+          error: undefined,
         };
         const testRequestPackage: FMPRequestObject = {
           requestType: "companyProfile",
@@ -68,15 +70,16 @@ describe("Company Profiles", () => {
           profiles: {},
           loading: "pending",
           currentRequestId: "myId",
-          error: null,
+          error: undefined,
         });
       });
+
       it("should handle fulfilled promise response ", () => {
         const testState = {
           profiles: {},
           loading: "pending",
           currentRequestId: "myId",
-          error: null,
+          error: undefined,
         };
         const testRequestPackage: FMPRequestObject = {
           requestType: "companyProfile",
@@ -104,14 +107,41 @@ describe("Company Profiles", () => {
           },
           loading: "idle",
           currentRequestId: undefined,
-          error: null,
+          error: undefined,
         });
       });
-      /** @TODO Implement test for rejected */
-      // TODO: it("should handle the rejectWithValue(value) promise response", () => {
-      //   const action = fetchFMPCompanyProfileBySymbol("AAPL");
-      //   // console.log(action)
-      // });
+
+      it("should handled a rejection due to a thrown error", () => {
+        const testState = {
+          profiles: {},
+          loading: "pending",
+          currentRequestId: "myId",
+          error: undefined,
+        };
+
+        const testRequestPackage: FMPRequestObject = {
+          requestType: "companyProfile",
+          securitySymbol: ["STPK"],
+        };
+        const testAction = fetchFMPCompanyProfileBySymbol.rejected(
+          new Error("Symbol not found"),
+          "",
+          testRequestPackage
+        );
+
+        const actual = functions.companyProfilesSlice.reducer(
+          testState as any,
+          testAction
+        );
+
+        expect(actual).toEqual({
+          error: "Symbol not found",
+          currentRequestId: undefined,
+          loading: "idle",
+          profiles: {},
+        });
+        // console.log(action)
+      });
     });
   });
   // describe('Company Profile Thunk', ()=> {

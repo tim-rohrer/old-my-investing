@@ -1,16 +1,19 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { InputWithLabel } from "../../common/InputWithLabel";
 import {
   fetchFMPCompanyProfileBySymbol,
   FMPRequestObject,
+  selectCompanyProfileError,
 } from "./companyProfilesSlice";
 
 export const CompanyProfile = () => {
   const [ticker, setTicker] = React.useState("");
 
   const dispatch: AppDispatch = useDispatch();
+
+  const companyProfileError = useSelector(selectCompanyProfileError);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -42,6 +45,7 @@ export const CompanyProfile = () => {
             <strong>Ticker: </strong>
           </InputWithLabel>
         </form>
+        {companyProfileError !== undefined ? companyProfileError : null}
       </header>
     </div>
   );

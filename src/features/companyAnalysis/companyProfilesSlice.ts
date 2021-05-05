@@ -1,6 +1,7 @@
 import { SecuritySymbol } from "../portfolio/types";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchFMPData } from "./fmpUtilities";
+import { RootState } from "../../app/store";
 
 export interface FMPRequestObject {
   requestType: "companyProfile";
@@ -18,20 +19,20 @@ interface CompanyProfilesState {
   };
   loading: "idle" | "pending";
   currentRequestId: string | undefined;
-  error: string | null;
+  error: string | undefined;
 }
 
 const initialState: CompanyProfilesState = {
   profiles: {},
   loading: "idle",
   currentRequestId: undefined,
-  error: null,
+  error: undefined,
 };
 // Thunks
 export const fetchFMPCompanyProfileBySymbol = createAsyncThunk(
   "companyProfiles/fetchStatus",
-  async (fmpRequestObject: FMPRequestObject, thunkAPI) => {
-    let res = await fetchFMPData(fmpRequestObject);
+  async (fmpRequestObject: FMPRequestObject) => {
+    const res = await fetchFMPData(fmpRequestObject);
     return res;
   }
 );
@@ -48,6 +49,7 @@ export const companyProfilesSlice = createSlice({
           return {
             ...state,
             loading: "pending",
+            error: undefined,
             currentRequestId: action.meta.requestId,
           };
         }
@@ -66,6 +68,14 @@ export const companyProfilesSlice = createSlice({
           loading: "idle",
           currentRequestId: undefined,
         };
+      })
+      .addCase(fetchFMPCompanyProfileBySymbol.rejected, (state, action) => {
+        return {
+          ...state,
+          loading: "idle",
+          currentRequestId: undefined,
+          error: action.error.message,
+        };
       }),
 });
 
@@ -75,6 +85,9 @@ export const companyProfilesSlice = createSlice({
 // Thunks
 
 // Selectors
+export const selectCompanyProfileError = (
+  state: RootState
+): string | undefined => state.companyProfiles.error;
 
 // Default export
 export default companyProfilesSlice.reducer;
