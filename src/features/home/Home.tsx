@@ -20,6 +20,10 @@ import { useStyles } from "../../common/useStyles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import { CompanyProfile } from "../companyAnalysis/CompanyProfile";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../app/store";
+import { appIsThinking, selectAppIsLoaded } from "../system/systemSlice";
+import { fetchFMPTradableSymbolsList } from "../securities/securitiesSlice";
 
 type HomeProps = {
   title: string;
@@ -32,7 +36,20 @@ type HomeProps = {
 const Home: FC<HomeProps> = ({ title }: HomeProps) => {
   const classes = useStyles();
 
-  // const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
+
+  const isAppLoaded = useSelector(selectAppIsLoaded);
+
+  React.useEffect(() => {
+    if (!isAppLoaded) {
+      dispatch(appIsThinking(true));
+      dispatch(
+        fetchFMPTradableSymbolsList({
+          requestType: "tradableSymbolsList",
+        })
+      );
+    }
+  }, [isAppLoaded, dispatch]);
 
   // Additional selectors for tracking important state changes
   // const isAppLoaded = useSelector(selectAppIsLoaded);

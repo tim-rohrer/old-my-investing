@@ -105,7 +105,7 @@ exports[`App renders a snapshot 1`] = `
     <div
       aria-hidden="true"
       class="MuiBackdrop-root makeStyles-backdrop-10"
-      style="opacity: 0; visibility: hidden;"
+      style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
     >
       <div
         class="MuiCircularProgress-root MuiCircularProgress-indeterminate"

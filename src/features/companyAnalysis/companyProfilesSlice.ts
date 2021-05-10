@@ -1,13 +1,13 @@
-import { SecuritySymbol } from "../portfolio/types";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchFMPData } from "./fmpUtilities";
 import { RootState } from "../../app/store";
 
 export interface FMPRequestObject {
-  requestType: "companyProfile";
-  securitySymbol: SecuritySymbol;
+  requestType: "companyProfile" | "tradableSymbolsList";
+  securitySymbol?: SecuritySymbol;
 }
 
+type SecuritySymbol = string;
 // Setup
 interface CompanyProfilesState {
   profiles: {

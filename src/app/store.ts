@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import counterReducer from "../features/counter/counterSlice";
 import systemReducer from "../features/system/systemSlice";
+import securitiesReducer from "../features/securities/securitiesSlice";
 import companyProfilesReducer from "../features/companyAnalysis/companyProfilesSlice";
 import portfolioReducer from "../features/portfolio/portfolioSlice";
 import quickenConnectorReducer from "../features/quickenConnector/quickenConnectorSlice";
@@ -8,6 +9,7 @@ import quickenConnectorReducer from "../features/quickenConnector/quickenConnect
 export const reducer = {
   counter: counterReducer,
   system: systemReducer,
+  securities: securitiesReducer,
   companyProfiles: companyProfilesReducer,
   portfolio: portfolioReducer,
   quickenConnector: quickenConnectorReducer,

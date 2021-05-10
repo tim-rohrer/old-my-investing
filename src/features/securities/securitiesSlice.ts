@@ -1,68 +1,149 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { SecuritySymbol } from "../portfolio/types";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { FMPRequestObject } from "../companyAnalysis/companyProfilesSlice";
+import { fetchFMPData } from "../companyAnalysis/fmpUtilities";
+
+export type SecuritySymbol = string;
+
+interface FMPTradableSymbol {
+  symbol: SecuritySymbol;
+  name: string;
+  price: number;
+  exchange: string;
+}
+interface Security {
+  symbol: SecuritySymbol;
+  name: string;
+  exchange?: string;
+  website?: string;
+}
+
+export interface SecurityList {
+  [id: string]: Security;
+}
 
 interface SecuritiesState {
-  [id: string]: {
-    securitySymbol: SecuritySymbol;
-    name: string;
-    website?: string;
+  securities: {
+    [id: string]: {
+      symbol: string;
+      name: string;
+    };
   };
+  fmpTradableSymbolsList: Array<any>;
+  loading: "idle" | "pending";
+  currentRequestId: string | undefined;
+  error: string | undefined;
 }
 
 const initialState: SecuritiesState = {
-  "": {
-    securitySymbol: "",
-    name: "",
-  },
+  securities: {},
+  fmpTradableSymbolsList: [],
+  loading: "idle",
+  currentRequestId: undefined,
+  error: undefined,
 };
+
+export const fetchFMPTradableSymbolsList = createAsyncThunk(
+  "securities/fetchFMPTradables",
+  async (fmpRequestObject: FMPRequestObject) => {
+    const res = await fetchFMPData(fmpRequestObject);
+    return res as FMPTradableSymbol[];
+  }
+);
 
 export const securitiesSlice = createSlice({
   name: "securities",
   initialState,
   reducers: {
     securityAdded: (state, action) => {
-      let securitySymbol = action.payload.securitySymbol.toUpperCase();
+      let symbol = action.payload.symbol.toUpperCase();
       return {
         ...state,
-        [securitySymbol]: {
-          securitySymbol: securitySymbol,
-          name: action.payload.name,
+        securities: {
+          ...state.securities,
+          [symbol]: {
+            symbol: symbol,
+            name: action.payload.name,
+          },
         },
       };
     },
     securityUpdated: (state, action) => {
-      let securitySymbol = action.payload.securitySymbol.toUpperCase();
+      let symbol = action.payload.symbol.toUpperCase();
       return {
         ...state,
-        [securitySymbol]: {
-          securitySymbol: securitySymbol,
-          name: action.payload.name,
+        securities: {
+          ...state.securities,
+          [symbol]: {
+            symbol: symbol,
+            name: action.payload.name,
+          },
         },
       };
     },
-    securitySymbolChanged: (state, action) => {
+    securitySymbolChanged: (
+      state,
+      action: PayloadAction<{
+        currentSymbol: SecuritySymbol;
+        newSymbol: SecuritySymbol;
+      }>
+    ) => {
       let { currentSymbol, newSymbol } = action.payload;
-      let securityDetails: Object = state[currentSymbol];
+      let securityDetails = state.securities[currentSymbol];
       securityDetails = {
         ...securityDetails,
-        securitySymbol: newSymbol,
+        symbol: newSymbol,
       };
-      let securities = { ...state };
-      delete securities[currentSymbol];
+      let oldSecurities = { ...state.securities };
+      delete oldSecurities[currentSymbol];
       return {
-        ...securities,
-        [newSymbol]: securityDetails,
+        ...state,
+        securities: {
+          ...oldSecurities,
+          [newSymbol]: securityDetails,
+        },
       };
     },
     securityRemoved: (state, action) => {
-      let securitySymbol = action.payload.toUpperCase();
-      let securities = { ...state };
-      delete securities[securitySymbol];
+      let symbol = action.payload.toUpperCase();
+      let securities = { ...state.securities };
+      delete securities[symbol];
       return {
-        ...securities,
+        ...state,
+        securities: {
+          ...securities,
+        },
       };
     },
   },
+  extraReducers: (builder) =>
+    builder
+      .addCase(fetchFMPTradableSymbolsList.pending, (state, action) => {
+        if (state.loading === "idle") {
+          return {
+            ...state,
+            loading: "pending",
+            error: undefined,
+            currentRequestId: action.meta.requestId,
+          };
+        }
+      })
+      .addCase(fetchFMPTradableSymbolsList.fulfilled, (state, action) => {
+        return {
+          ...state,
+          fmpTradableSymbolsList: action.payload,
+          loading: "idle",
+          currentRequestId: undefined,
+          error: undefined,
+        };
+      })
+      .addCase(fetchFMPTradableSymbolsList.rejected, (state, action) => {
+        return {
+          ...state,
+          loading: "idle",
+          currentRequestId: undefined,
+          error: action.error.message,
+        };
+      }),
 });
 
 // Actions

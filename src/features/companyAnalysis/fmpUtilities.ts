@@ -3,6 +3,7 @@
  * @author Tim Rohrer
  */
 import axios from "axios";
+import { SecurityList } from "../securities/securitiesSlice";
 import { FMPRequestObject } from "./companyProfilesSlice";
 
 export async function fetchFMPData(requestObject: FMPRequestObject) {
@@ -12,6 +13,9 @@ export async function fetchFMPData(requestObject: FMPRequestObject) {
   let path = "";
   if (requestType === "companyProfile") {
     path = api + "/company/profile/" + securitySymbol;
+  }
+  if (requestType === "tradableSymbolsList") {
+    path = api + "/available-traded/list/";
   }
   let url = domain + path;
   try {
@@ -26,4 +30,30 @@ export async function fetchFMPData(requestObject: FMPRequestObject) {
   } catch (error) {
     throw error;
   }
+}
+
+// 21 May 09 Written, but not used as it is too slow, and it
+// turned out an array is needed for the autocomplete.
+// TODO: Rewrite and implement as asynchronous
+export function convertFMPTradableSymbolListToBySymbolObject(
+  tradableSymbolsListArray: {
+    symbol: string;
+    name: string;
+    price: number;
+    exchange: string;
+  }[]
+) {
+  let securityListBySymbol: SecurityList = {};
+  tradableSymbolsListArray.forEach((security) => {
+    securityListBySymbol = {
+      ...securityListBySymbol,
+      [security.symbol]: {
+        symbol: security.symbol,
+        name: security.name,
+        exchange: security.exchange,
+      },
+    };
+    return securityListBySymbol;
+  });
+  return securityListBySymbol;
 }

@@ -1,4 +1,4 @@
-export type SecuritySymbol = string;
+import { SecuritySymbol } from "../securities/securitiesSlice";
 
 export interface Holding {
   securitySymbol: SecuritySymbol;

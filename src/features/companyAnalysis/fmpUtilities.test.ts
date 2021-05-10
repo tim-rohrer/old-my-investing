@@ -1,7 +1,11 @@
 import nock from "nock";
-import { fetchFMPData } from "./fmpUtilities";
+import {
+  convertFMPTradableSymbolListToBySymbolObject,
+  fetchFMPData,
+} from "./fmpUtilities";
 import axios from "axios";
 import { FMPRequestObject } from "./companyProfilesSlice";
+import { SecurityList } from "../securities/securitiesSlice";
 axios.defaults.adapter = require("axios/lib/adapters/http");
 
 describe("FMP Utilities", () => {
@@ -97,5 +101,38 @@ describe("FMP Utilities", () => {
     });
   });
 
-  describe("Company Valuation/Quote", () => {});
+  describe("Convert securities form", () => {
+    it("should convert FMP Tradable Symbols List to My Investing Securities List", () => {
+      const tradableListFixture = [
+        {
+          symbol: "SPY",
+          name: "SPDR S&P 500",
+          price: 415.75,
+          exchange: "New York Stock Exchange Arca",
+        },
+        {
+          symbol: "CMCSA",
+          name: "Comcast Corp",
+          price: 56.41,
+          exchange: "Nasdaq Global Select",
+        },
+      ];
+      const myInvestingSecuritiesList: SecurityList = {
+        SPY: {
+          symbol: "SPY",
+          name: "SPDR S&P 500",
+          exchange: "New York Stock Exchange Arca",
+        },
+        CMCSA: {
+          symbol: "CMCSA",
+          name: "Comcast Corp",
+          exchange: "Nasdaq Global Select",
+        },
+      };
+
+      expect(
+        convertFMPTradableSymbolListToBySymbolObject(tradableListFixture)
+      ).toStrictEqual(myInvestingSecuritiesList);
+    });
+  });
 });
