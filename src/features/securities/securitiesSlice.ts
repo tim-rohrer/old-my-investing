@@ -11,6 +11,8 @@ interface FMPTradableSymbol {
   price: number;
   exchange: string;
 }
+
+type FMPCompanySymbol = FMPTradableSymbol;
 interface Security {
   symbol: SecuritySymbol;
   name: string;
@@ -29,6 +31,7 @@ interface SecuritiesState {
       name: string;
     };
   };
+  fmpCompaniesSymbolsList: Array<any>;
   fmpTradableSymbolsList: Array<any>;
   loading: "idle" | "pending";
   currentRequestId: string | undefined;
@@ -37,11 +40,20 @@ interface SecuritiesState {
 
 const initialState: SecuritiesState = {
   securities: {},
+  fmpCompaniesSymbolsList: [],
   fmpTradableSymbolsList: [],
   loading: "idle",
   currentRequestId: undefined,
   error: undefined,
 };
+
+export const fetchFMPCompaniesSymbolsList = createAsyncThunk(
+  "securities/fetchFMPCompanies",
+  async (fmpRequestObject: FMPRequestObject) => {
+    const res = await fetchFMPData(fmpRequestObject);
+    return res as FMPCompanySymbol[];
+  }
+);
 
 export const fetchFMPTradableSymbolsList = createAsyncThunk(
   "securities/fetchFMPTradables",
@@ -148,6 +160,22 @@ export const securitiesSlice = createSlice({
           currentRequestId: undefined,
           error: action.error.message,
         };
+      })
+      .addCase(fetchFMPCompaniesSymbolsList.pending, (state, action) => {
+        state.loading = "pending";
+        state.error = undefined;
+        state.currentRequestId = action.meta.requestId;
+      })
+      .addCase(fetchFMPCompaniesSymbolsList.fulfilled, (state, action) => {
+        state.loading = "idle";
+        state.error = undefined;
+        state.currentRequestId = undefined;
+        state.fmpCompaniesSymbolsList = action.payload;
+      })
+      .addCase(fetchFMPCompaniesSymbolsList.rejected, (state, action) => {
+        state.loading = "idle";
+        state.currentRequestId = undefined;
+        state.error = action.error.message;
       }),
 });
 
@@ -160,6 +188,8 @@ export const {
 } = securitiesSlice.actions;
 
 // Selectors
+export const selectCompaniesSymbols = (state: RootState) =>
+  state.securities.fmpCompaniesSymbolsList;
 export const selectTradableSymbols = (state: RootState) =>
   state.securities.fmpTradableSymbolsList;
 

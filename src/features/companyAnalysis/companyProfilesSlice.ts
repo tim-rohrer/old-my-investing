@@ -3,7 +3,10 @@ import { fetchFMPData } from "./fmpUtilities";
 import { RootState } from "../../app/store";
 
 export interface FMPRequestObject {
-  requestType: "companyProfile" | "tradableSymbolsList";
+  requestType:
+    | "companyProfile"
+    | "companiesSymbolsList"
+    | "tradableSymbolsList";
   securitySymbol?: SecuritySymbol;
 }
 

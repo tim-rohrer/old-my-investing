@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { fetchFMPTradableSymbolsList } from "../securities/securitiesSlice";
+import { fetchFMPCompaniesSymbolsList } from "../securities/securitiesSlice";
 
 interface SystemState {
   userId: string;
@@ -33,7 +33,7 @@ export const systemSlice = createSlice({
     },
   },
   extraReducers: (builder) =>
-    builder.addCase(fetchFMPTradableSymbolsList.fulfilled, (state, action) => {
+    builder.addCase(fetchFMPCompaniesSymbolsList.fulfilled, (state, action) => {
       return {
         ...state,
         appLoaded: true,

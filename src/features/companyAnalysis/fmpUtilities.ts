@@ -17,6 +17,9 @@ export async function fetchFMPData(requestObject: FMPRequestObject) {
   if (requestType === "tradableSymbolsList") {
     path = api + "/available-traded/list/";
   }
+  if (requestType === "companiesSymbolsList") {
+    path = api + "/stock/list/";
+  }
   let url = domain + path;
   try {
     const apiKey = process.env.REACT_APP_FMP_API_KEY;

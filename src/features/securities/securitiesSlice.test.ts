@@ -30,6 +30,7 @@ describe("Securities", () => {
     it("should return the initial state", () => {
       expect(securities(undefined, { type: "@@INIT" } as any)).toEqual({
         securities: {},
+        fmpCompaniesSymbolsList: [],
         fmpTradableSymbolsList: [],
         loading: "idle",
         currentRequestId: undefined,
@@ -232,6 +233,7 @@ describe("Securities", () => {
     it("should handle a pending request", () => {
       const testState = {
         securities: {},
+        fmpCompaniesSymbolsList: [],
         fmpTradableSymbolsList: [],
         loading: "idle",
         currentRequestId: undefined,
@@ -252,6 +254,7 @@ describe("Securities", () => {
 
       expect(actual).toStrictEqual({
         securities: {},
+        fmpCompaniesSymbolsList: [],
         fmpTradableSymbolsList: [],
         loading: "pending",
         currentRequestId: "myId",
@@ -262,6 +265,7 @@ describe("Securities", () => {
     it("should handle fulfilled promise response ", () => {
       const testState = {
         securities: {},
+        fmpCompaniesSymbolsList: [],
         fmpTradableSymbolsList: [],
         loading: "pending",
         currentRequestId: "myId",
@@ -313,6 +317,7 @@ describe("Securities", () => {
 
       expect(actual).toStrictEqual({
         securities: {},
+        fmpCompaniesSymbolsList: [],
         fmpTradableSymbolsList: tradableListFixture, // securities fixture,
         loading: "idle",
         currentRequestId: undefined,
@@ -323,6 +328,7 @@ describe("Securities", () => {
     it("should handle a rejection response", () => {
       const testState = {
         securities: {},
+        fmpCompaniesSymbolsList: [],
         fmpTradableSymbolsList: [],
         loading: "pending",
         currentRequestId: "myId",
@@ -345,6 +351,138 @@ describe("Securities", () => {
 
       expect(actual).toStrictEqual({
         securities: {},
+        fmpCompaniesSymbolsList: [],
+        fmpTradableSymbolsList: [], // securities fixture,
+        loading: "idle",
+        currentRequestId: undefined,
+        error: "Test Error",
+      });
+    });
+  });
+
+  describe("extraReducers: fetchFMPCompaniesSymbolsList", () => {
+    it("should handle a pending request", () => {
+      const testState = {
+        securities: {},
+        fmpCompaniesSymbolsList: [],
+        fmpTradableSymbolsList: [],
+        loading: "idle",
+        currentRequestId: undefined,
+        error: undefined,
+      };
+      const testRequestPackage: FMPRequestObject = {
+        requestType: "companiesSymbolsList",
+      };
+      const testAction = functions.fetchFMPCompaniesSymbolsList.pending(
+        "myId",
+        testRequestPackage
+      );
+
+      const actual = functions.securitiesSlice.reducer(
+        testState as any,
+        testAction
+      );
+
+      expect(actual).toStrictEqual({
+        securities: {},
+        fmpCompaniesSymbolsList: [],
+        fmpTradableSymbolsList: [],
+        loading: "pending",
+        currentRequestId: "myId",
+        error: undefined,
+      });
+    });
+
+    it("should handle fulfilled promise response ", () => {
+      const testState = {
+        securities: {},
+        fmpCompaniesSymbolsList: [],
+        fmpTradableSymbolsList: [],
+        loading: "pending",
+        currentRequestId: "myId",
+        error: undefined,
+      };
+      const testRequestPackage: FMPRequestObject = {
+        requestType: "companiesSymbolsList",
+      };
+
+      const companiesListFixture = [
+        {
+          symbol: "SPY",
+          name: "SPDR S&P 500",
+          price: 415.75,
+          exchange: "New York Stock Exchange Arca",
+        },
+        {
+          symbol: "CMCSA",
+          name: "Comcast Corp",
+          price: 56.41,
+          exchange: "Nasdaq Global Select",
+        },
+        {
+          symbol: "KMI",
+          name: "Kinder Morgan Inc",
+          price: 17.51,
+          exchange: "New York Stock Exchange",
+        },
+        {
+          symbol: "INTC",
+          name: "Intel Corp",
+          price: 56.85,
+          exchange: "Nasdaq Global Select",
+        },
+      ];
+
+      const testAction = functions.fetchFMPCompaniesSymbolsList.fulfilled(
+        companiesListFixture,
+        "",
+        testRequestPackage
+      );
+      // console.log(action)
+
+      const actual = functions.securitiesSlice.reducer(
+        testState as any,
+        testAction
+      );
+      // console.log("Test Result", actual)
+
+      expect(actual).toStrictEqual({
+        securities: {},
+        fmpCompaniesSymbolsList: companiesListFixture,
+        fmpTradableSymbolsList: [], // securities fixture,
+        loading: "idle",
+        currentRequestId: undefined,
+        error: undefined,
+      });
+    });
+
+    it("should handle a rejection response", () => {
+      const testState = {
+        securities: {},
+        fmpCompaniesSymbolsList: [],
+        fmpTradableSymbolsList: [],
+        loading: "pending",
+        currentRequestId: "myId",
+        error: undefined,
+      };
+      const testRequestPackage: FMPRequestObject = {
+        requestType: "companiesSymbolsList",
+      };
+
+      const testAction = functions.fetchFMPCompaniesSymbolsList.rejected(
+        new Error("Test Error"),
+        "",
+        testRequestPackage
+      );
+
+      const actual = functions.securitiesSlice.reducer(
+        testState as any,
+        testAction
+      );
+
+      expect(actual).toStrictEqual({
+        securities: {},
+        fmpCompaniesSymbolsList: [],
         fmpTradableSymbolsList: [], // securities fixture,
         loading: "idle",
         currentRequestId: undefined,

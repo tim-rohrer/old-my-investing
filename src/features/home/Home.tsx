@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { appIsThinking, selectAppIsLoaded } from "../system/systemSlice";
 import {
-  fetchFMPTradableSymbolsList,
-  // selectTradableSymbols,
+  fetchFMPCompaniesSymbolsList,
+  selectCompaniesSymbols,
 } from "../securities/securitiesSlice";
 
 type HomeProps = {
@@ -31,25 +31,14 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
   const dispatch: AppDispatch = useDispatch();
 
   const isAppLoaded = useSelector(selectAppIsLoaded);
-  // const tradableSymbols = useSelector(selectTradableSymbols);
-  // const companiesSymbolsList = useSelector(selectCompaniesSymbols);
-  const companiesSymbolsList = [
-    {
-      name: "Dick's Sporting Goods, Inc",
-      symbol: "DKS",
-    },
-    {
-      name: "Simon Property Group",
-      symbol: "SPG",
-    },
-  ];
+  const companiesSymbolsList = useSelector(selectCompaniesSymbols);
 
   React.useEffect(() => {
     if (!isAppLoaded) {
       dispatch(appIsThinking(true));
       dispatch(
-        fetchFMPTradableSymbolsList({
-          requestType: "tradableSymbolsList",
+        fetchFMPCompaniesSymbolsList({
+          requestType: "companiesSymbolsList",
         })
       );
     }
