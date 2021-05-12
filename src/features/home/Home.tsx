@@ -1,16 +1,6 @@
 import React, { FC } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import {
-//   selectChosenMappingService,
-//   selectMappingResources,
-//   selectAppIsLoaded,
-//   appIsLoaded,
-//   appIsThinking,
-// } from '../system/systemSlice';
-// import { AppDispatch } from "../../app/store";
 import {
   AppBar,
-  // Grid,
   IconButton,
   InputBase,
   Toolbar,
@@ -19,11 +9,14 @@ import {
 import { useStyles } from "../../common/useStyles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import { CompanyProfile } from "../companyAnalysis/CompanyProfile";
+import { Autocomplete } from "@material-ui/lab";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { appIsThinking, selectAppIsLoaded } from "../system/systemSlice";
-import { fetchFMPTradableSymbolsList } from "../securities/securitiesSlice";
+import {
+  fetchFMPTradableSymbolsList,
+  // selectTradableSymbols,
+} from "../securities/securitiesSlice";
 
 type HomeProps = {
   title: string;
@@ -35,10 +28,21 @@ type HomeProps = {
  */
 const Home: FC<HomeProps> = ({ title }: HomeProps) => {
   const classes = useStyles();
-
   const dispatch: AppDispatch = useDispatch();
 
   const isAppLoaded = useSelector(selectAppIsLoaded);
+  // const tradableSymbols = useSelector(selectTradableSymbols);
+  // const companiesSymbolsList = useSelector(selectCompaniesSymbols);
+  const companiesSymbolsList = [
+    {
+      name: "Dick's Sporting Goods, Inc",
+      symbol: "DKS",
+    },
+    {
+      name: "Simon Property Group",
+      symbol: "SPG",
+    },
+  ];
 
   React.useEffect(() => {
     if (!isAppLoaded) {
@@ -51,8 +55,6 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
     }
   }, [isAppLoaded, dispatch]);
 
-  // Additional selectors for tracking important state changes
-  // const isAppLoaded = useSelector(selectAppIsLoaded);
   return (
     <div className={classes.root}>
       <AppBar position="sticky">
@@ -68,22 +70,35 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
           <Typography className={classes.title} variant="h6" noWrap>
             My Investing (Prototype)
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Symbol…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
+          <Autocomplete
+            id="symbol-search"
+            autoHighlight
+            options={companiesSymbolsList}
+            getOptionLabel={(option) => `${option.name} (${option.symbol})`}
+            style={{ width: 400 }}
+            noOptionsText="No securities found"
+            renderInput={(params) => {
+              const { InputLabelProps, InputProps, ...rest } = params;
+              return (
+                <div className={classes.search}>
+                  <div className={classes.searchIcon}>
+                    <SearchIcon />
+                  </div>
+                  <InputBase
+                    {...params.InputProps}
+                    {...rest}
+                    placeholder="Symbol or Name"
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                    }}
+                  />
+                </div>
+              );
+            }}
+          />
         </Toolbar>
       </AppBar>
-      <CompanyProfile />
     </div>
   );
 };

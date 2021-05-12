@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 import { FMPRequestObject } from "../companyAnalysis/companyProfilesSlice";
 import { fetchFMPData } from "../companyAnalysis/fmpUtilities";
 
@@ -46,7 +47,11 @@ export const fetchFMPTradableSymbolsList = createAsyncThunk(
   "securities/fetchFMPTradables",
   async (fmpRequestObject: FMPRequestObject) => {
     const res = await fetchFMPData(fmpRequestObject);
-    return res as FMPTradableSymbol[];
+    const sortedList = res.sort(
+      (current: { exchange: string }, next: { exchange: any }) =>
+        current.exchange.localeCompare(next.exchange)
+    );
+    return sortedList as FMPTradableSymbol[];
   }
 );
 
@@ -154,9 +159,9 @@ export const {
   securityRemoved,
 } = securitiesSlice.actions;
 
-// Thunks
-
 // Selectors
+export const selectTradableSymbols = (state: RootState) =>
+  state.securities.fmpTradableSymbolsList;
 
 // Default export
 export default securitiesSlice.reducer;
