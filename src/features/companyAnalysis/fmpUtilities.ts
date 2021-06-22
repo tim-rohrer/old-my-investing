@@ -3,8 +3,46 @@
  * @author Tim Rohrer
  */
 import axios from "axios";
-import { SecurityList } from "../securities/securitiesSlice";
+import { SecurityList, SecuritySymbol } from "../securities/securitiesSlice";
 import { FMPRequestObject } from "./companyProfilesSlice";
+import { MyCompanyProfile } from "./useCompanyProfile";
+
+export interface FMPCompanyProfile {
+  symbol: string;
+  price: number;
+  beta: number;
+  volAvg: number;
+  mktCap: number;
+  lastDiv: number;
+  range: string;
+  changes: number;
+  companyName: string;
+  currency: string;
+  cik: string;
+  isin: string;
+  cusip: string;
+  exchange: string;
+  exchangeShortName: string;
+  industry: string;
+  website: string;
+  description: string;
+  ceo: string;
+  sector: string;
+  country: string;
+  fullTimeEmployees: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  dcfDiff: number;
+  dcf: number;
+  image: string;
+  ipoDate: string;
+  defaultImage: boolean;
+  isEtf: boolean;
+  isActivelyTrading: boolean;
+}
 
 export async function fetchFMPData(requestObject: FMPRequestObject) {
   let { requestType, securitySymbol } = requestObject;
@@ -34,6 +72,31 @@ export async function fetchFMPData(requestObject: FMPRequestObject) {
     throw error;
   }
 }
+
+export const convertFMPProfileToMyCompanyProfile = (
+  symbol: SecuritySymbol,
+  fmpCompanyProfile: FMPCompanyProfile
+): MyCompanyProfile => {
+  const {
+    companyName,
+    sector,
+    industry,
+    exchange,
+    description,
+    ceo,
+    website,
+  } = fmpCompanyProfile;
+  return {
+    symbol,
+    name: companyName,
+    sector,
+    industry,
+    exchange,
+    description,
+    ceo,
+    website,
+  } as MyCompanyProfile;
+};
 
 // 21 May 09 Written, but not used as it is too slow, and it
 // turned out an array is needed for the autocomplete.

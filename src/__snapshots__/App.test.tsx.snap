@@ -41,7 +41,7 @@ exports[`App renders a snapshot 1`] = `
           <h6
             class="MuiTypography-root makeStyles-title-3 MuiTypography-h6 MuiTypography-noWrap"
           >
-            My Investing (Prototype)
+            My App (Prototype)
           </h6>
           <div
             aria-expanded="false"
@@ -78,14 +78,14 @@ exports[`App renders a snapshot 1`] = `
                   placeholder="Symbol or Name"
                   spellcheck="false"
                   type="text"
-                  value=""
+                  value="undefined (undefined)"
                 />
                 <div
                   class="MuiAutocomplete-endAdornment"
                 >
                   <button
                     aria-label="Clear"
-                    class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator"
+                    class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator MuiAutocomplete-clearIndicatorDirty"
                     tabindex="-1"
                     title="Clear"
                     type="button"
@@ -139,6 +139,17 @@ exports[`App renders a snapshot 1`] = `
           </div>
         </div>
       </header>
+      <div
+        class="CompanyProfile"
+      >
+        <header
+          class="CompanyProfile-header"
+        >
+          <h1>
+            Company Profile
+          </h1>
+        </header>
+      </div>
     </div>
     <div
       aria-hidden="true"

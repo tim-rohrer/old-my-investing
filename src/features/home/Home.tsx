@@ -15,8 +15,15 @@ import { AppDispatch } from "../../app/store";
 import { appIsThinking, selectAppIsLoaded } from "../system/systemSlice";
 import {
   fetchFMPCompaniesSymbolsList,
+  FMPCompanySymbol,
   selectCompaniesSymbols,
 } from "../securities/securitiesSlice";
+import {
+  fetchFMPCompanyProfileBySymbol,
+  FMPRequestObject,
+} from "../companyAnalysis/companyProfilesSlice";
+import { CompanyProfile } from "../companyAnalysis/CompanyProfile";
+import useCompanyProfile from "../companyAnalysis/useCompanyProfile";
 
 type HomeProps = {
   title: string;
@@ -30,8 +37,11 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
   const classes = useStyles();
   const dispatch: AppDispatch = useDispatch();
 
+  const [companySymbol, setCompanySymbol] = React.useState<string>("AAPL");
   const isAppLoaded = useSelector(selectAppIsLoaded);
   const companiesSymbolsList = useSelector(selectCompaniesSymbols);
+  const currentCompanyProfile = useCompanyProfile(companySymbol);
+  console.log(currentCompanyProfile);
 
   React.useEffect(() => {
     if (!isAppLoaded) {
@@ -43,6 +53,12 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
       );
     }
   }, [isAppLoaded, dispatch]);
+
+  // React.useEffect(() => {
+  //   if (companySymbol) {
+  //     useCompanyProfile(companySymbol);
+  //   } else console.log("Beats me!");
+  // }, [companySymbol]);
 
   return (
     <div className={classes.root}>
@@ -57,7 +73,7 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            My Investing (Prototype)
+            {title}
           </Typography>
           <Autocomplete
             id="symbol-search"
@@ -65,6 +81,10 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
             options={companiesSymbolsList}
             getOptionLabel={(option) => `${option.name} (${option.symbol})`}
             style={{ width: 400 }}
+            value={companySymbol}
+            onChange={(event: any, newValue: string) => {
+              setCompanySymbol(newValue);
+            }}
             noOptionsText="No securities found"
             renderInput={(params) => {
               const { InputLabelProps, InputProps, ...rest } = params;
@@ -88,6 +108,7 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
           />
         </Toolbar>
       </AppBar>
+      {currentCompanyProfile !== null && <CompanyProfile />}
     </div>
   );
 };

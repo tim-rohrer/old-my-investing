@@ -1,9 +1,11 @@
+import * as reactRedux from "react-redux";
 import { cleanup } from "../../test-utils";
 import companyProfiles, {
   fetchFMPCompanyProfileBySymbol,
   FMPRequestObject,
 } from "./companyProfilesSlice";
 import * as functions from "./companyProfilesSlice";
+import { RootState } from "../../app/store";
 
 // const fetchBySymbol: jest.Mock = require('companyProfilesSlice').fetchBySymbol;
 
@@ -36,8 +38,13 @@ describe("Company Profiles", () => {
 
   describe("Reducer", () => {
     it("should return the initial state", () => {
-      expect(companyProfiles(undefined, { type: "@@INIT" } as any)).toEqual({
-        profiles: {},
+      expect(
+        companyProfiles(undefined, {
+          type: "@@INIT",
+        } as any)
+      ).toEqual({
+        fmpCompanyProfiles: {},
+        fmpCompanyProfilesLoaded: [],
         loading: "idle",
         currentRequestId: undefined,
         error: undefined,
@@ -46,15 +53,16 @@ describe("Company Profiles", () => {
 
     describe("extraReducers: fetchFMPCompanyProfileBySymbol", () => {
       it("should handle a pending request", () => {
-        const testState = {
-          profiles: {},
+        const testState: RootState["companyProfiles"] = {
+          fmpCompanyProfiles: {},
+          fmpCompanyProfilesLoaded: [],
           loading: "idle",
           currentRequestId: undefined,
           error: undefined,
         };
         const testRequestPackage: FMPRequestObject = {
           requestType: "companyProfile",
-          securitySymbol: ["AAPL"],
+          securitySymbol: "AAPL",
         };
         const testAction = fetchFMPCompanyProfileBySymbol.pending(
           "myId",
@@ -67,7 +75,8 @@ describe("Company Profiles", () => {
         );
 
         expect(actual).toStrictEqual({
-          profiles: {},
+          fmpCompanyProfiles: {},
+          fmpCompanyProfilesLoaded: [],
           loading: "pending",
           currentRequestId: "myId",
           error: undefined,
@@ -75,15 +84,16 @@ describe("Company Profiles", () => {
       });
 
       it("should handle fulfilled promise response ", () => {
-        const testState = {
-          profiles: {},
+        const testState: RootState["companyProfiles"] = {
+          fmpCompanyProfiles: {},
+          fmpCompanyProfilesLoaded: [],
           loading: "pending",
           currentRequestId: "myId",
           error: undefined,
         };
         const testRequestPackage: FMPRequestObject = {
           requestType: "companyProfile",
-          securitySymbol: ["AAPL"],
+          securitySymbol: "AAPL",
         };
         const testAction = fetchFMPCompanyProfileBySymbol.fulfilled(
           mockFMPCompanyProfileApple,
@@ -99,12 +109,10 @@ describe("Company Profiles", () => {
         // console.log("Test Result", actual)
 
         expect(actual).toStrictEqual({
-          profiles: {
-            AAPL: {
-              securitySymbol: "AAPL",
-              fmpProfile: mockFMPCompanyProfileApple,
-            },
+          fmpCompanyProfiles: {
+            AAPL: mockFMPCompanyProfileApple,
           },
+          fmpCompanyProfilesLoaded: ["AAPL"],
           loading: "idle",
           currentRequestId: undefined,
           error: undefined,
@@ -112,8 +120,9 @@ describe("Company Profiles", () => {
       });
 
       it("should handled a rejection due to a thrown error", () => {
-        const testState = {
-          profiles: {},
+        const testState: RootState["companyProfiles"] = {
+          fmpCompanyProfiles: {},
+          fmpCompanyProfilesLoaded: [],
           loading: "pending",
           currentRequestId: "myId",
           error: undefined,
@@ -121,7 +130,7 @@ describe("Company Profiles", () => {
 
         const testRequestPackage: FMPRequestObject = {
           requestType: "companyProfile",
-          securitySymbol: ["STPK"],
+          securitySymbol: "STPK",
         };
         const testAction = fetchFMPCompanyProfileBySymbol.rejected(
           new Error("Symbol not found"),
@@ -138,12 +147,30 @@ describe("Company Profiles", () => {
           error: "Symbol not found",
           currentRequestId: undefined,
           loading: "idle",
-          profiles: {},
+          fmpCompanyProfiles: {},
+          fmpCompanyProfilesLoaded: [],
         });
         // console.log(action)
       });
     });
   });
+
+  // describe("Selectors", () => {
+  //   const useSelectorMock = jest.spyOn(reactRedux, "useSelector");
+  //   const useDispatchMock = jest.spyOn(reactRedux, "useDispatch");
+
+  //   beforeEach(() => {
+  //     useSelectorMock.mockClear();
+  //     useDispatchMock.mockClear();
+  //   });
+
+  //   it("is a plain test", () => {
+  //     useSelectorMock.mockReturnValue({ error: undefined });
+
+  //     expect
+  //   })
+  // });
+
   // describe('Company Profile Thunk', ()=> {
 
   //     const scope = nock('https://financialmodelingprep.com')

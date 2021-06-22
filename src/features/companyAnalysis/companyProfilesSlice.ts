@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchFMPData } from "./fmpUtilities";
+import { fetchFMPData, FMPCompanyProfile } from "./fmpUtilities";
 import { RootState } from "../../app/store";
+import { MyCompanyProfile } from "./useCompanyProfile";
 
 export interface FMPRequestObject {
   requestType:
@@ -13,20 +14,18 @@ export interface FMPRequestObject {
 type SecuritySymbol = string;
 // Setup
 interface CompanyProfilesState {
-  profiles: {
-    [id: string]: {
-      securitySymbol: SecuritySymbol;
-      myProfile?: Object;
-      fmpProfile?: Object;
-    };
+  fmpCompanyProfiles: {
+    [id: string]: FMPCompanyProfile;
   };
+  fmpCompanyProfilesLoaded: Array<SecuritySymbol>;
   loading: "idle" | "pending";
   currentRequestId: string | undefined;
   error: string | undefined;
 }
 
 const initialState: CompanyProfilesState = {
-  profiles: {},
+  fmpCompanyProfiles: {},
+  fmpCompanyProfilesLoaded: [],
   loading: "idle",
   currentRequestId: undefined,
   error: undefined,
@@ -59,18 +58,13 @@ export const companyProfilesSlice = createSlice({
       })
       .addCase(fetchFMPCompanyProfileBySymbol.fulfilled, (state, action) => {
         const securitySymbol: SecuritySymbol = action.payload.symbol;
-        return {
-          ...state,
-          profiles: {
-            ...state.profiles,
-            [securitySymbol]: {
-              securitySymbol: securitySymbol,
-              fmpProfile: action.payload,
-            },
-          },
-          loading: "idle",
-          currentRequestId: undefined,
+        state.currentRequestId = undefined;
+        state.loading = "idle";
+        state.fmpCompanyProfiles = {
+          ...state.fmpCompanyProfiles,
+          [securitySymbol]: action.payload,
         };
+        state.fmpCompanyProfilesLoaded.push(securitySymbol);
       })
       .addCase(fetchFMPCompanyProfileBySymbol.rejected, (state, action) => {
         return {
@@ -91,6 +85,15 @@ export const companyProfilesSlice = createSlice({
 export const selectCompanyProfileError = (
   state: RootState
 ): string | undefined => state.companyProfiles.error;
+
+export const selectProfilesLoaded = (state: RootState): Array<string> | null =>
+  state.companyProfiles.fmpCompanyProfilesLoaded;
+
+export const selectCompanyProfile = (symbol: string | null) => (
+  state: RootState
+): FMPCompanyProfile | undefined => {
+  if (symbol !== null) return state.companyProfiles.fmpCompanyProfiles[symbol];
+};
 
 // Default export
 export default companyProfilesSlice.reducer;

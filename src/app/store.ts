@@ -1,23 +1,32 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import counterReducer from "../features/counter/counterSlice";
-import systemReducer from "../features/system/systemSlice";
-import securitiesReducer from "../features/securities/securitiesSlice";
-import companyProfilesReducer from "../features/companyAnalysis/companyProfilesSlice";
-import portfolioReducer from "../features/portfolio/portfolioSlice";
-import quickenConnectorReducer from "../features/quickenConnector/quickenConnectorSlice";
+import {
+  combineReducers,
+  configureStore,
+  ThunkAction,
+  Action,
+} from "@reduxjs/toolkit";
+import system from "../features/system/systemSlice";
+import securities from "../features/securities/securitiesSlice";
+import companyProfiles from "../features/companyAnalysis/companyProfilesSlice";
+import portfolio from "../features/portfolio/portfolioSlice";
+import quickenConnector from "../features/quickenConnector/quickenConnectorSlice";
 
-export const reducer = {
-  counter: counterReducer,
-  system: systemReducer,
-  securities: securitiesReducer,
-  companyProfiles: companyProfilesReducer,
-  portfolio: portfolioReducer,
-  quickenConnector: quickenConnectorReducer,
-};
+export const rootReducer = combineReducers({
+  system,
+  securities,
+  companyProfiles,
+  portfolio,
+  quickenConnector,
+});
 
 export const store = configureStore({
-  reducer,
+  reducer: rootReducer,
 });
+
+export type Store = typeof store;
+
+export type Reducer = typeof rootReducer;
+
+export type State = ReturnType<Reducer>;
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -25,7 +34,9 @@ export type AppDispatch = typeof store.dispatch;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
-  RootState,
+  State,
   unknown,
   Action<string>
 >;
+
+export default store;

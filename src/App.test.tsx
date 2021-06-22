@@ -1,16 +1,29 @@
 import React from "react";
 import { render, cleanup } from "./test-utils";
-// import '@testing-library/jest-dom/extend-expect'
 import App from "./App";
+import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { Store, rootReducer as reducer } from "./app/store";
+
+let store: Store;
+let component: any;
+
+beforeAll(() => {
+  store = configureStore({
+    reducer,
+  });
+  component = render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+});
 
 afterEach(cleanup);
 
 describe("App", () => {
   it("renders a snapshot", () => {
-    const { container } = render(<App />);
-    expect(container).toMatchSnapshot();
+    expect(component.container).toMatchSnapshot();
   });
 
   it("renders my title", () => {
@@ -19,6 +32,7 @@ describe("App", () => {
         <App />
       </Provider>
     );
-    expect(getByText(/Investing/i)).toBeInTheDocument();
+
+    expect(getByText(/Prototype/i)).toBeInTheDocument();
   });
 });

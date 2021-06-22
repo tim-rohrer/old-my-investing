@@ -45,16 +45,6 @@ export const CompanyProfile = () => {
     <div className="CompanyProfile">
       <header className="CompanyProfile-header">
         <h1>Company Profile</h1>
-        <form onSubmit={handleSubmit}>
-          <InputWithLabel
-            id="tickerInput"
-            value={ticker}
-            isFocused
-            onInputChange={handleChange}
-          >
-            <strong>Ticker: </strong>
-          </InputWithLabel>
-        </form>
         {companyProfileError !== undefined ? companyProfileError : null}
       </header>
     </div>

@@ -9,11 +9,10 @@ import { useSelector } from "react-redux";
 const App: React.FC<Record<any, any>> = () => {
   const classes = useStyles();
   const isAppThinking = useSelector(selectAppIsThinking);
-  // const isAppThinking = false;
 
   return (
     <div className="App">
-      <Home title="Stop Solver Demo" />
+      <Home title="My App (Prototype)" />
       <Backdrop className={classes.backdrop} open={isAppThinking}>
         <CircularProgress color="inherit" />
       </Backdrop>

@@ -12,7 +12,7 @@ interface FMPTradableSymbol {
   exchange: string;
 }
 
-type FMPCompanySymbol = FMPTradableSymbol;
+export type FMPCompanySymbol = FMPTradableSymbol;
 interface Security {
   symbol: SecuritySymbol;
   name: string;

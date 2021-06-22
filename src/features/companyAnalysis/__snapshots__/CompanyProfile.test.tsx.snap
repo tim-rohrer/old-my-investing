@@ -11,22 +11,6 @@ exports[`Company Profile renders a snapshot 1`] = `
       <h1>
         Company Profile
       </h1>
-      <form>
-        <label
-          for="tickerInput"
-        >
-          <strong>
-            Ticker: 
-          </strong>
-        </label>
-         
-        <input
-          id="tickerInput"
-          type="text"
-          value=""
-        />
-         
-      </form>
     </header>
   </div>
 </div>
