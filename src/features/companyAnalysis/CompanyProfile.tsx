@@ -1,52 +1,56 @@
+/** CompanyProfile should be a presentational component */
+
 // import { makeStyles } from "@material-ui/core";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../app/store";
-import { InputWithLabel } from "../../common/InputWithLabel";
 import {
-  fetchFMPCompanyProfileBySymbol,
-  FMPRequestObject,
-  selectCompanyProfileError,
-} from "./companyProfilesSlice";
+  Avatar,
+  Card,
+  Collapse,
+  Grid,
+  Paper,
+  Typography,
+} from "@material-ui/core";
+import React from "react";
+import { useStyles } from "../../common/useStyles";
+import { MyCompanyProfile } from "./useCompanyProfile";
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     "& .MuiTextField-root": {
-//       margin: theme.spacing(1),
-//       width: 200,
-//     },
-//   },
-// }));
+type CompanyProfileProps = MyCompanyProfile;
 
-export const CompanyProfile = () => {
-  const [ticker, setTicker] = React.useState("");
-
-  const dispatch: AppDispatch = useDispatch();
-
-  const companyProfileError = useSelector(selectCompanyProfileError);
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    setTicker(ticker.toUpperCase());
-    const requestObject: FMPRequestObject = {
-      requestType: "companyProfile",
-      securitySymbol: ticker,
-    };
-    dispatch(fetchFMPCompanyProfileBySymbol(requestObject));
-  };
-
-  const handleChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setTicker(event.target.value);
-  };
+export const CompanyProfile: React.FC<CompanyProfileProps> = ({
+  symbol,
+  name,
+  sector,
+  industry,
+  exchange,
+  description,
+  ceo,
+  website,
+}) => {
+  const classes = useStyles();
 
   return (
-    <div className="CompanyProfile">
-      <header className="CompanyProfile-header">
-        <h1>Company Profile</h1>
-        {companyProfileError !== undefined ? companyProfileError : null}
-      </header>
+    <div className={classes.root}>
+      <Paper elevation={3} className={classes.paper}>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <h1>{name}</h1>
+          </Grid>
+          <Grid item xs={6}>
+            {sector}/{industry}/{exchange}
+          </Grid>
+          <Grid item>
+            <Avatar>{symbol}</Avatar>
+          </Grid>
+          <Grid item xs zeroMinWidth className={classes.companyDescription}>
+            <Typography>{description}</Typography>
+          </Grid>
+        </Grid>
+      </Paper>
     </div>
   );
 };
+
+/**
+ *         {companyProfileError !== undefined
+          ? companyProfileError
+          : companyProfile}
+ */
