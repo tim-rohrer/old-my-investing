@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchFMPData, FMPCompanyProfile } from "./fmpUtilities";
 import { RootState } from "../../app/store";
-import { MyCompanyProfile } from "./useCompanyProfile";
 
 export interface FMPRequestObject {
   requestType:
