@@ -37,11 +37,10 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
   const classes = useStyles();
   const dispatch: AppDispatch = useDispatch();
 
-  const [companySymbol, setCompanySymbol] = React.useState<string>("AAPL");
+  const [companySymbol, setCompanySymbol] = React.useState<string>("DG");
   const isAppLoaded = useSelector(selectAppIsLoaded);
   const companiesSymbolsList = useSelector(selectCompaniesSymbols);
   const currentCompanyProfile = useCompanyProfile(companySymbol);
-  console.log(currentCompanyProfile);
 
   React.useEffect(() => {
     if (!isAppLoaded) {
@@ -108,7 +107,11 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
           />
         </Toolbar>
       </AppBar>
-      {currentCompanyProfile !== null && <CompanyProfile />}
+      {currentCompanyProfile !== undefined ? (
+        <CompanyProfile {...currentCompanyProfile} />
+      ) : (
+        "Loading..."
+      )}
     </div>
   );
 };
