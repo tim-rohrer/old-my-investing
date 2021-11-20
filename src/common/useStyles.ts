@@ -4,6 +4,7 @@ export const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      margin: 10,
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -57,11 +58,15 @@ export const useStyles = makeStyles((theme) =>
       // alignContent: "center",
     },
     paper: {
-      padding: theme.spacing(1),
-      textAlign: "center",
-      flex: 1,
+      padding: theme.spacing(2),
+      margin: 5,
+      textAlign: "left",
       color: theme.palette.text.secondary,
-      flexGrow: 1,
+    },
+    companyDescription: {
+      margin: 5,
+      maxHeight: "100px",
+      overflow: "scroll",
     },
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
