@@ -7,29 +7,29 @@ import portfolio, {
 
 afterEach(cleanup);
 
-let amazon = {
+const amazon = {
   symbol: "AMZ",
   name: "Amazon, Inc.",
 };
 
-let dicks = {
+const dicks = {
   symbol: "DKS",
   name: "Dick's Sporting Goods, Inc.",
 };
 
-let lippert = {
+const lippert = {
   symbol: "LCII",
   name: "Lippert Components, Inc.",
 };
-let state0 = {};
+const state0 = {};
 
-let state1 = {
+const state1 = {
   [amazon.symbol]: {
     ...amazon,
   },
 };
 
-let state2 = {
+const state2 = {
   [amazon.symbol]: {
     ...amazon,
   },
@@ -38,14 +38,14 @@ let state2 = {
   },
 };
 
-let state3 = {
+const state3 = {
   ...state2,
   [lippert.symbol]: {
     ...lippert,
   },
 };
 
-let state4 = {
+const state4 = {
   [amazon.symbol]: {
     ...amazon,
   },

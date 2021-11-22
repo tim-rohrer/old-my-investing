@@ -50,7 +50,7 @@ describe("System Slice", () => {
   it("should set appThinking to true", () => {
     const testArg = true;
     const testPayload = testArg;
-    let testState = {
+    const testState = {
       userId: "Demo",
       appThinking: false,
       appLoaded: true,
@@ -70,7 +70,7 @@ describe("System Slice", () => {
   it("should set appThinking to false", () => {
     const testArg = false;
     const testPayload = testArg;
-    let testState = {
+    const testState = {
       userId: "Demo",
       appThinking: true,
       appLoaded: true,

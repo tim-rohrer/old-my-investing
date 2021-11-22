@@ -12,17 +12,17 @@ import * as functions from "./securitiesSlice";
 afterEach(cleanup);
 
 describe("Securities", () => {
-  let amazon = {
+  const amazon = {
     symbol: "AMZ",
     name: "Amazon, Inc.",
   };
 
-  let dicks = {
+  const dicks = {
     symbol: "DKS",
     name: "Dick's Sporting Goods, Inc.",
   };
 
-  let spg = {
+  const spg = {
     symbol: "SPG",
     name: "Simons Property Group",
   };
@@ -39,45 +39,45 @@ describe("Securities", () => {
     });
 
     it("should handle securityAdded", () => {
-      let testState = {};
-      let testPayload = {
+      const testState = {};
+      const testPayload = {
         symbol: "DKS",
         name: "Dick's Sporting Goods, Inc.",
       };
-      let expectedMatch = {
+      const expectedMatch = {
         securities: {
           DKS: dicks,
         },
       };
 
-      let actionCreator = securityAdded;
+      const actionCreator = securityAdded;
 
-      let testResult = securities(testState as any, actionCreator(testPayload));
+      const testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toMatchObject(expectedMatch);
     });
 
     it("should handle securityAdded and making sure the the symbol is uppercase", () => {
-      let testState = {};
-      let testPayload = {
+      const testState = {};
+      const testPayload = {
         symbol: "Dks",
         name: "Dick's Sporting Goods, Inc.",
       };
-      let expectedMatch = {
+      const expectedMatch = {
         securities: {
           DKS: dicks,
         },
       };
 
-      let actionCreator = securityAdded;
+      const actionCreator = securityAdded;
 
-      let testResult = securities(testState as any, actionCreator(testPayload));
+      const testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toMatchObject(expectedMatch);
     });
 
     it("should handle nth securityAdded, and not create duplicate symbols", () => {
-      let testState = {
+      const testState = {
         securities: {
           [amazon.symbol]: amazon,
           [dicks.symbol]: dicks,
@@ -86,11 +86,11 @@ describe("Securities", () => {
         currentRequestId: undefined,
         error: undefined,
       };
-      let testPayload = {
+      const testPayload = {
         symbol: "Dks",
         name: "Dick's Sporting Goods, Inc.",
       };
-      let expectedMatch = {
+      const expectedMatch = {
         securities: {
           DKS: dicks,
           AMZ: amazon,
@@ -100,15 +100,15 @@ describe("Securities", () => {
         error: undefined,
       };
 
-      let actionCreator = securityAdded;
+      const actionCreator = securityAdded;
 
-      let testResult = securities(testState as any, actionCreator(testPayload));
+      const testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toStrictEqual(expectedMatch);
     });
 
     it("should handle securityUpdated (with lower case symbols)", () => {
-      let testState = {
+      const testState = {
         securities: {
           [amazon.symbol]: amazon,
           [dicks.symbol]: dicks,
@@ -118,11 +118,11 @@ describe("Securities", () => {
         currentRequestId: undefined,
         error: undefined,
       };
-      let testPayload = {
+      const testPayload = {
         symbol: "spg",
         name: "Simon Property Group",
       };
-      let expectedMatch = {
+      const expectedMatch = {
         securities: {
           DKS: dicks,
           AMZ: amazon,
@@ -135,15 +135,15 @@ describe("Securities", () => {
         currentRequestId: undefined,
         error: undefined,
       };
-      let actionCreator = securityUpdated;
+      const actionCreator = securityUpdated;
 
-      let testResult = securities(testState as any, actionCreator(testPayload));
+      const testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toStrictEqual(expectedMatch);
     });
 
     it("should handle securitySymbolChanged", () => {
-      let testState = {
+      const testState = {
         securities: {
           DKS: dicks,
           ABCD: {
@@ -155,11 +155,11 @@ describe("Securities", () => {
         currentRequestId: undefined,
         error: undefined,
       };
-      let testPayload = {
+      const testPayload = {
         currentSymbol: "ABCD",
         newSymbol: "ABC",
       };
-      let expectedMatch = {
+      const expectedMatch = {
         securities: {
           ABC: {
             symbol: "ABC",
@@ -171,15 +171,15 @@ describe("Securities", () => {
         currentRequestId: undefined,
         error: undefined,
       };
-      let actionCreator = securitySymbolChanged;
+      const actionCreator = securitySymbolChanged;
 
-      let testResult = securities(testState as any, actionCreator(testPayload));
+      const testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toStrictEqual(expectedMatch);
     });
 
     it("should handle securityRemoved", () => {
-      let testState = {
+      const testState = {
         securities: {
           DKS: dicks,
           AMZ: amazon,
@@ -192,8 +192,8 @@ describe("Securities", () => {
         currentRequestId: undefined,
         error: undefined,
       };
-      let testPayload = "abc";
-      let expectedMatch = {
+      const testPayload = "abc";
+      const expectedMatch = {
         securities: {
           AMZ: amazon,
           DKS: dicks,
@@ -202,15 +202,15 @@ describe("Securities", () => {
         currentRequestId: undefined,
         error: undefined,
       };
-      let actionCreator = securityRemoved;
+      const actionCreator = securityRemoved;
 
-      let testResult = securities(testState as any, actionCreator(testPayload));
+      const testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toStrictEqual(expectedMatch);
     });
 
     it("should handle securityRemoved even if symbol not found", () => {
-      let testState = {
+      const testState = {
         securities: {
           DKS: dicks,
           AMZ: amazon,
@@ -219,11 +219,11 @@ describe("Securities", () => {
         currentRequestId: undefined,
         error: undefined,
       };
-      let testPayload = "ABC";
-      let expectedMatch = testState;
-      let actionCreator = securityRemoved;
+      const testPayload = "ABC";
+      const expectedMatch = testState;
+      const actionCreator = securityRemoved;
 
-      let testResult = securities(testState as any, actionCreator(testPayload));
+      const testResult = securities(testState as any, actionCreator(testPayload));
 
       expect(testResult).toStrictEqual(expectedMatch);
     });
