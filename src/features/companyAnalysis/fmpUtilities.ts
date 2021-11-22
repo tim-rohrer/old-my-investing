@@ -47,9 +47,9 @@ export interface FMPCompanyProfile {
 }
 
 export async function fetchFMPData(requestObject: FMPRequestObject) {
-  let { requestType, securitySymbol } = requestObject;
-  let domain = "https://financialmodelingprep.com";
-  let api = "/api/v3";
+  const { requestType, securitySymbol } = requestObject;
+  const domain = "https://financialmodelingprep.com";
+  const api = "/api/v3";
   let path = "";
   if (requestType === "companyProfile") {
     path = api + "/company/profile/" + securitySymbol;

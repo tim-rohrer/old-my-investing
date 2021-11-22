@@ -23,7 +23,7 @@ export const portfolioSlice = createSlice({
       };
     },
     holdingIsAdded: (state, action) => {
-      let symbol = action.payload.symbol.toUpperCase();
+      const symbol = action.payload.symbol.toUpperCase();
       return {
         ...state,
         [symbol]: {
