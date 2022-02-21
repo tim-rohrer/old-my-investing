@@ -136,17 +136,7 @@ exports[`home renders a snapshot 1`] = `
         </div>
       </div>
     </header>
-    <div
-      class="CompanyProfile"
-    >
-      <header
-        class="CompanyProfile-header"
-      >
-        <h1>
-          Company Profile
-        </h1>
-      </header>
-    </div>
+    Loading...
   </div>
 </div>
 `;

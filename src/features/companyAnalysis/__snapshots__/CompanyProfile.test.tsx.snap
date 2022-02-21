@@ -3,19 +3,50 @@
 exports[`Company Profile renders a snapshot 1`] = `
 <div>
   <div
-    class="CompanyProfile"
+    class="makeStyles-root-1"
   >
-    <header
-      class="CompanyProfile-header"
+    <div
+      class="MuiPaper-root makeStyles-paper-9 MuiPaper-elevation3 MuiPaper-rounded"
     >
-      <h1>
-        Company Profile
-      </h1>
-      <h2>
-        Name: 
-      </h2>
-      Triple X
-    </header>
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+        >
+          <h1>
+            Triple Letter
+          </h1>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+        >
+          Entertainment
+          /
+          Media
+          /
+          Private
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item"
+        >
+          <div
+            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault"
+          >
+            XYZ
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root makeStyles-companyDescription-10 MuiGrid-item MuiGrid-zeroMinWidth MuiGrid-grid-xs-true"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            A made up company for testing
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
