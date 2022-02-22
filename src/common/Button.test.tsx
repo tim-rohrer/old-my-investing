@@ -2,7 +2,7 @@ import React from "react";
 import { render, cleanup } from "../test-utils";
 import Button from "./Button";
 
-afterEach(cleanup);
+// afterEach(cleanup);
 
 describe("Button", () => {
   // it('renders a snapshot', () => {
