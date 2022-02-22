@@ -15,13 +15,8 @@ import { AppDispatch } from "../../app/store";
 import { appIsThinking, selectAppIsLoaded } from "../system/systemSlice";
 import {
   fetchFMPCompaniesSymbolsList,
-  FMPCompanySymbol,
   selectCompaniesSymbols,
 } from "../securities/securitiesSlice";
-import {
-  fetchFMPCompanyProfileBySymbol,
-  FMPRequestObject,
-} from "../companyAnalysis/companyProfilesSlice";
 import { CompanyProfile } from "../companyAnalysis/CompanyProfile";
 import useCompanyProfile from "../companyAnalysis/useCompanyProfile";
 
