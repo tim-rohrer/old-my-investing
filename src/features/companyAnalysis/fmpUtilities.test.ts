@@ -91,7 +91,6 @@ describe("FMP Utilities", () => {
       it("handles return of an error", async () => {
         scope.get(path).reply(500)
 
-        expect.assertions(1)
         try {
           await fetchFMPData({
             requestType: "companyProfile",
