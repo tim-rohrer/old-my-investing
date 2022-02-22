@@ -6,7 +6,8 @@
     "preserveConstEnums": true,
     "strictNullChecks": true,
     "types": ["jest"],
-    "noEmit": true
+    "noEmit": true,
+    "lib": ["dom"]
   },
   "include": ["src/**/*"]
 }
