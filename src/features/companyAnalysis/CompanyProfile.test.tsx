@@ -24,7 +24,6 @@ describe("Company Profile", () => {
 
   it("displays the company name", () => {
     render(<CompanyProfile {...testCompanyProfile} />);
-    expect(screen.getByText("Triple X")).toBeInTheDocument();
-    screen.debug();
+    expect(screen.getByText("Triple Letter")).toBeInTheDocument();
   });
 });
