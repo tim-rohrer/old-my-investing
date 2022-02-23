@@ -3,8 +3,6 @@
 // import { makeStyles } from "@material-ui/core";
 import {
   Avatar,
-  Card,
-  Collapse,
   Grid,
   Paper,
   Typography,
