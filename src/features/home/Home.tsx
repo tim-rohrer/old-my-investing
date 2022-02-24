@@ -15,10 +15,11 @@ import { AppDispatch } from "../../app/store";
 import { appIsThinking, selectAppIsLoaded } from "../system/systemSlice";
 import {
   fetchFMPCompaniesSymbolsList,
-  selectCompaniesSymbols,
+  selectCompanies,
 } from "../securities/securitiesSlice";
 import { CompanyProfile } from "../companyAnalysis/CompanyProfile";
 import useCompanyProfile from "../companyAnalysis/useCompanyProfile";
+import { extractParentheticalText } from "../../common/helperFunctions";
 
 type HomeProps = {
   title: string;
@@ -32,10 +33,12 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
   const classes = useStyles();
   const dispatch: AppDispatch = useDispatch();
 
-  const [companySymbol, setCompanySymbol] = React.useState<string>("DG");
+  const [companySymbol, setCompanySymbol] = React.useState<string | null>(null);
   const isAppLoaded = useSelector(selectAppIsLoaded);
-  const companiesSymbolsList = useSelector(selectCompaniesSymbols);
+  const companiesList = useSelector(selectCompanies) || null;
   const currentCompanyProfile = useCompanyProfile(companySymbol);
+  const [inputValue, setInputValue] = React.useState("");
+  
 
   React.useEffect(() => {
     if (!isAppLoaded) {
@@ -47,12 +50,6 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
       );
     }
   }, [isAppLoaded, dispatch]);
-
-  // React.useEffect(() => {
-  //   if (companySymbol) {
-  //     useCompanyProfile(companySymbol);
-  //   } else console.log("Beats me!");
-  // }, [companySymbol]);
 
   return (
     <div className={classes.root}>
@@ -71,13 +68,18 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
           </Typography>
           <Autocomplete
             id="symbol-search"
-            autoHighlight
-            options={companiesSymbolsList}
-            getOptionLabel={(option) => `${option.name} (${option.symbol})`}
+            inputValue={inputValue}
+            onInputChange={(event, newInputValue) => {
+              setInputValue(newInputValue);
+            }}
+            autoHighlight={false}
+            options={companiesList}
             style={{ width: 400 }}
             value={companySymbol}
-            onChange={(event: any, newValue: string) => {
-              setCompanySymbol(newValue);
+            onChange={(event: unknown, newValue: string | null) => {
+              if (newValue !== null) {
+                setCompanySymbol(extractParentheticalText(newValue))
+              }
             }}
             noOptionsText="No securities found"
             renderInput={(params) => {
@@ -99,6 +101,7 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
                 </div>
               );
             }}
+            open={inputValue.length > 2}
           />
         </Toolbar>
       </AppBar>

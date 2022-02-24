@@ -7,6 +7,17 @@ import { RootState } from "../../app/store"
 import { FMPRequestObject } from "../companyAnalysis/companyProfilesSlice"
 import { fetchFMPData } from "../companyAnalysis/fmpUtilities"
 
+/**
+ * Securities Slice
+ *
+ * Contains and provides information on securities loaded
+ * into the app from:
+ *
+ *  - Financial Modeling Prep
+ *  - User data from Quicken
+ *
+ */
+
 export type SecuritySymbol = string
 
 interface FMPTradableSymbol {
@@ -35,8 +46,8 @@ interface SecuritiesState {
       name: string
     }
   }
-  fmpCompaniesSymbolsList: Array<unknown>
-  fmpTradableSymbolsList: Array<unknown>
+  fmpCompaniesSymbolsList: Array<FMPCompanySymbol>
+  fmpTradableSymbolsList: Array<FMPTradableSymbol>
   loading: "idle" | "pending"
   currentRequestId: string | undefined
   error: string | undefined
@@ -210,8 +221,11 @@ export const {
 } = securitiesSlice.actions
 
 // Selectors
-export const selectCompaniesSymbols = (state: RootState) =>
-  state.securities.fmpCompaniesSymbolsList
+export const selectCompanies = (state: RootState) =>
+  state.securities.fmpCompaniesSymbolsList.map(
+    (company) => `${company.name} (${company.symbol})`,
+  )
+
 export const selectTradableSymbols = (state: RootState) =>
   state.securities.fmpTradableSymbolsList
 

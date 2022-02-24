@@ -75,7 +75,7 @@ exports[`home renders a snapshot 1`] = `
                 placeholder="Symbol or Name"
                 spellcheck="false"
                 type="text"
-                value="undefined (undefined)"
+                value=""
               />
               <div
                 class="MuiAutocomplete-endAdornment"
