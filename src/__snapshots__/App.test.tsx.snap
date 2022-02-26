@@ -2,170 +2,130 @@
 
 exports[`App renders a snapshot 1`] = `
 <div>
-  <div
-    class="App"
-  >
-    <div
-      class="makeStyles-root-1"
+  <div>
+    <header
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionSticky css-7e0s21-MuiPaper-root-MuiAppBar-root"
     >
-      <header
-        class="MuiPaper-root MuiAppBar-root MuiAppBar-positionSticky MuiAppBar-colorPrimary MuiPaper-elevation4"
+      <div
+        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-1t29gy6-MuiToolbar-root"
       >
-        <div
-          class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
+        <button
+          aria-label="open drawer"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeLarge css-184mzhy-MuiButtonBase-root-MuiIconButton-root"
+          tabindex="0"
+          type="button"
         >
-          <button
-            aria-label="open drawer"
-            class="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-2 MuiIconButton-colorInherit MuiIconButton-edgeStart"
-            tabindex="0"
-            type="button"
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+            data-testid="MenuIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
           >
-            <span
-              class="MuiIconButton-label"
-            >
+            <path
+              d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+            />
+          </svg>
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <h6
+          class="MuiTypography-root MuiTypography-h6 MuiTypography-noWrap css-8u39c-MuiTypography-root"
+        >
+          My App (Prototype)
+        </h6>
+        <div
+          aria-expanded="false"
+          class="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon css-16awh2u-MuiAutocomplete-root"
+          role="combobox"
+          style="width: 400px;"
+        >
+          <div>
+            <div>
               <svg
                 aria-hidden="true"
-                class="MuiSvgIcon-root"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                data-testid="SearchIcon"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
                 <path
-                  d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+                  d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
                 />
               </svg>
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </button>
-          <h6
-            class="MuiTypography-root makeStyles-title-3 MuiTypography-h6 MuiTypography-noWrap"
-          >
-            My App (Prototype)
-          </h6>
-          <div
-            aria-expanded="false"
-            class="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
-            role="combobox"
-            style="width: 400px;"
-          >
+            </div>
             <div
-              class="makeStyles-search-4"
+              class="MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-adornedEnd MuiAutocomplete-inputRoot css-luel6v-MuiInputBase-root"
             >
+              <input
+                aria-autocomplete="list"
+                autocapitalize="none"
+                autocomplete="off"
+                class="MuiInputBase-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-yz9k0d-MuiInputBase-input"
+                id="symbol-search"
+                placeholder="Symbol or Name"
+                spellcheck="false"
+                type="text"
+                value=""
+              />
               <div
-                class="makeStyles-searchIcon-5"
+                class="MuiAutocomplete-endAdornment css-1q60rmi-MuiAutocomplete-endAdornment"
               >
-                <svg
-                  aria-hidden="true"
-                  class="MuiSvgIcon-root"
-                  focusable="false"
-                  viewBox="0 0 24 24"
+                <button
+                  aria-label="Open"
+                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-popupIndicator css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator"
+                  tabindex="-1"
+                  title="Open"
+                  type="button"
                 >
-                  <path
-                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                    data-testid="ArrowDropDownIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M7 10l5 5 5-5z"
+                    />
+                  </svg>
+                  <span
+                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                   />
-                </svg>
-              </div>
-              <div
-                class="MuiInputBase-root makeStyles-inputRoot-6 MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInputBase-adornedEnd"
-              >
-                <input
-                  aria-autocomplete="list"
-                  autocapitalize="none"
-                  autocomplete="off"
-                  class="MuiInputBase-input makeStyles-inputInput-7 MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd"
-                  id="symbol-search"
-                  placeholder="Symbol or Name"
-                  spellcheck="false"
-                  type="text"
-                  value="undefined (undefined)"
-                />
-                <div
-                  class="MuiAutocomplete-endAdornment"
-                >
-                  <button
-                    aria-label="Clear"
-                    class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator MuiAutocomplete-clearIndicatorDirty"
-                    tabindex="-1"
-                    title="Clear"
-                    type="button"
-                  >
-                    <span
-                      class="MuiIconButton-label"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
-                        focusable="false"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                        />
-                      </svg>
-                    </span>
-                    <span
-                      class="MuiTouchRipple-root"
-                    />
-                  </button>
-                  <button
-                    aria-label="Open"
-                    class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-popupIndicator"
-                    tabindex="-1"
-                    title="Open"
-                    type="button"
-                  >
-                    <span
-                      class="MuiIconButton-label"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="MuiSvgIcon-root"
-                        focusable="false"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M7 10l5 5 5-5z"
-                        />
-                      </svg>
-                    </span>
-                    <span
-                      class="MuiTouchRipple-root"
-                    />
-                  </button>
-                </div>
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </header>
-      Loading...
-    </div>
-    <div
-      aria-hidden="true"
-      class="MuiBackdrop-root makeStyles-backdrop-11"
-      style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
-    >
-      <div
-        class="MuiCircularProgress-root MuiCircularProgress-indeterminate"
-        role="progressbar"
-        style="width: 40px; height: 40px;"
-      >
-        <svg
-          class="MuiCircularProgress-svg"
-          viewBox="22 22 44 44"
-        >
-          <circle
-            class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
-            cx="44"
-            cy="44"
-            fill="none"
-            r="20.2"
-            stroke-width="3.6"
-          />
-        </svg>
       </div>
-    </div>
+    </header>
+    Loading...
+  </div>
+  <div
+    aria-hidden="true"
+    class="MuiBackdrop-root css-1ji7omv-MuiBackdrop-root"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+  >
+    <span
+      class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorInherit css-62e83j-MuiCircularProgress-root"
+      role="progressbar"
+      style="width: 40px; height: 40px;"
+    >
+      <svg
+        class="MuiCircularProgress-svg css-1idz92c-MuiCircularProgress-svg"
+        viewBox="22 22 44 44"
+      >
+        <circle
+          class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate css-176wh8e-MuiCircularProgress-circle"
+          cx="44"
+          cy="44"
+          fill="none"
+          r="20.2"
+          stroke-width="3.6"
+        />
+      </svg>
+    </span>
   </div>
 </div>
 `;

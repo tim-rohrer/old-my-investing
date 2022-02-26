@@ -2,24 +2,22 @@
 
 exports[`Company Profile renders a snapshot 1`] = `
 <div>
-  <div
-    class="makeStyles-root-1"
-  >
+  <div>
     <div
-      class="MuiPaper-root makeStyles-paper-9 MuiPaper-elevation3 MuiPaper-rounded"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 css-3su884-MuiPaper-root"
     >
       <div
-        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
+        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-zow5z4-MuiGrid-root"
       >
         <div
-          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
         >
           <h1>
             Triple Letter
           </h1>
         </div>
         <div
-          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
         >
           Entertainment
           /
@@ -28,19 +26,19 @@ exports[`Company Profile renders a snapshot 1`] = `
           Private
         </div>
         <div
-          class="MuiGrid-root MuiGrid-item"
+          class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
         >
           <div
-            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault"
+            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-2s90m6-MuiAvatar-root"
           >
             XYZ
           </div>
         </div>
         <div
-          class="MuiGrid-root makeStyles-companyDescription-10 MuiGrid-item MuiGrid-zeroMinWidth MuiGrid-grid-xs-true"
+          class="MuiGrid-root MuiGrid-item MuiGrid-zeroMinWidth MuiGrid-grid-xs-true css-1trorcb-MuiGrid-root"
         >
           <p
-            class="MuiTypography-root MuiTypography-body1"
+            class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
           >
             A made up company for testing
           </p>

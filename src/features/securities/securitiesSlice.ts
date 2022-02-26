@@ -222,9 +222,10 @@ export const {
 
 // Selectors
 export const selectCompanies = (state: RootState) =>
-  state.securities.fmpCompaniesSymbolsList.map(
-    (company) => `${company.name} (${company.symbol})`,
-  )
+  state.securities.fmpCompaniesSymbolsList
+// state.securities.fmpCompaniesSymbolsList.map(
+//   (company) => `${company.name} (${company.symbol})`,
+// )
 
 export const selectTradableSymbols = (state: RootState) =>
   state.securities.fmpTradableSymbolsList
