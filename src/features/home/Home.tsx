@@ -11,15 +11,14 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { Autocomplete } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
-import { appIsThinking, selectAppIsLoaded } from "../system/systemSlice";
+import { appIsThinking } from "../system/systemSlice";
 import {
   fetchFMPCompaniesSymbolsList,
-  selectCompanies,
 } from "../securities/securitiesSlice";
-import { CompanyProfile } from "../companyAnalysis/CompanyProfile";
-import useCompanyProfile from "../companyAnalysis/useCompanyProfile";
+// import { CompanyProfile } from "../companyAnalysis/CompanyProfile";
+// import useCompanyProfile from "../companyAnalysis/useCompanyProfile";
 import { extractParentheticalText } from "../../common/helperFunctions";
 
 type HomeProps = {
@@ -71,16 +70,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
  * This level is where top level data coordination occurs.
  */
 const Home: FC<HomeProps> = ({ title }: HomeProps) => {
-  // const classes = useStyles();
   const dispatch: AppDispatch = useDispatch();
 
   const [open, setOpen] = React.useState<boolean>(false)
+  const [inputValue, setInputValue] = React.useState<string>("")
+  const [value, setValue] = React.useState<string>();
   const [companySymbol, setCompanySymbol] = React.useState<string | null>(null)
-  const isAppLoaded = useSelector(selectAppIsLoaded)
-  const companiesList = useSelector(selectCompanies) || null
-  const currentCompanyProfile = useCompanyProfile(companySymbol)
-  const [inputValue, setInputValue] = React.useState("")
-  
+
+  // const currentCompanyProfile = useCompanyProfile(companySymbol)
+
+  const isAppLoaded = true // = useSelector(selectAppIsLoaded)
+  // const companiesList = useSelector(selectCompanies) || null
+  const companiesList = [
+    {
+      name: "Apple",
+      symbol: "AAPL"
+    },
+    {
+      name: "Nvidia",
+      symbol: "NVDA"
+    }
+  ];
 
   React.useEffect(() => {
     if (!isAppLoaded) {
@@ -102,7 +112,8 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
             // className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
-            size="large">
+            size="large"
+          >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" noWrap sx={{ flexGrow: 1 }} >
@@ -112,30 +123,31 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            {/* <StyledInputBase> */}
               <Autocomplete
+                freeSolo
+                sx={{ flexGrow: 1}}
                 id="symbol-search"
+                disableClearable
                 open={open}
                 inputValue={inputValue}
-                onInputChange={(event, newInputValue, reason) => {
-                  if (reason === "input") {
+                onInputChange={(event, newInputValue) => {
+                  // if (reason === "input" || reason === "reset") {
                     setInputValue(newInputValue);
                     if (newInputValue.length > 2) {
                       setOpen(true);
                     } else setOpen(false);
-                  }
+                  // }
                 }}
                 autoHighlight={false}
-                // options={companiesList.map((option) => option.symbol)}
                 options={companiesList.map((option) => `${option.name} (${option.symbol})`)}
-                // getOptionLabel={(option) => `${option.name} (${option.symbol})`}
                 style={{ width: 400 }}
-                // value={companySymbol}
+                value={value}
                 onChange={(event: unknown, newValue: string | null) => {
                   if (newValue !== null) {
                     setCompanySymbol(extractParentheticalText(newValue))
                     setOpen(false)
                     setInputValue("")
+                    setValue("")
                   }
                 }}
                 noOptionsText="No securities found"
@@ -150,15 +162,15 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
                   );
                 }}
               />
-            {/* </StyledInputBase> */}
           </Search>
         </Toolbar>
       </AppBar>
-      {currentCompanyProfile !== undefined ? (
+      {companySymbol}
+      {/* {currentCompanyProfile !== undefined ? (
         <CompanyProfile {...currentCompanyProfile} />
       ) : (
         "Loading..."
-      )}
+      )} */}
     </Box>
   );
 };
