@@ -8,7 +8,6 @@
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.26.1",
     "pdf2json": "^2.0.1",
-    "quicken-data-extractor": "https://github.com/tim-rohrer/quicken-data-extractor.git#v0.3.0-a",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-redux": "^8.0.1",
