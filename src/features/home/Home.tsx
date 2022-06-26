@@ -1,25 +1,17 @@
-import React, { FC } from "react";
-import { styled, alpha } from "@mui/material/styles";
-import {
-  AppBar,
-  Box,
-  IconButton,
-  InputBase,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import { Autocomplete } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../app/store";
-import { appIsThinking } from "../system/systemSlice";
-import {
-  fetchFMPCompaniesSymbolsList,
-} from "../securities/securitiesSlice";
+import React, { FC } from "react"
+import { useDispatch } from "react-redux"
+
+import SearchIcon from "@mui/icons-material/Search"
+import { AppBar, Autocomplete, Box, InputBase, Toolbar, Typography } from "@mui/material"
+import { alpha, styled } from "@mui/material/styles"
+
+import { AppDispatch } from "../../app/store"
 // import { CompanyProfile } from "../companyAnalysis/CompanyProfile";
 // import useCompanyProfile from "../companyAnalysis/useCompanyProfile";
-import { extractParentheticalText } from "../../common/helperFunctions";
+import { extractParentheticalText } from "../../common/helperFunctions"
+import { fetchFMPCompaniesSymbolsList } from "../securities/securitiesSlice"
+import { appIsThinking } from "../system/systemSlice"
+import FeatureMenu from "./FeatureMenu"
 
 type HomeProps = {
   title: string;
@@ -107,15 +99,18 @@ const Home: FC<HomeProps> = ({ title }: HomeProps) => {
     <Box sx={{ flexGrow: 1}}>
       <AppBar position="sticky">
         <Toolbar>
-          <IconButton
+          <FeatureMenu />
+          {/* <IconButton
             edge="start"
             // className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
             size="large"
           >
-            <MenuIcon />
-          </IconButton>
+            <MenuIcon>
+              <FeatureMenu />
+            </MenuIcon>
+          </IconButton> */}
           <Typography variant="h6" component="div" noWrap sx={{ flexGrow: 1 }} >
             {title}
           </Typography>

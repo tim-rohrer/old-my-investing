@@ -1,11 +1,14 @@
-import React from "react";
-import { render, cleanup, screen, fireEvent } from "../../test-utils";
-import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom/extend-expect";
-import { configureStore } from "@reduxjs/toolkit";
-import { Provider } from "react-redux";
-import { Store, rootReducer as reducer } from "../../app/store";
-import Home from "./Home";
+import "@testing-library/jest-dom/extend-expect"
+
+import React from "react"
+import { Provider } from "react-redux"
+
+import { configureStore } from "@reduxjs/toolkit"
+import userEvent from "@testing-library/user-event"
+
+import { rootReducer as reducer, Store } from "../../app/store"
+import { cleanup, render, screen } from "../../test-utils"
+import Home from "./Home"
 
 let store: Store;
 let component: any;
@@ -33,7 +36,7 @@ describe("home", () => {
   });
 
   it("renders the Company Profile after the user enters a symbol", () => {
-    // screen.debug();
+    screen.debug();
     (global as any).document.createRange = () => ({
       setStart: () => {},
       setEnd: () => {},
