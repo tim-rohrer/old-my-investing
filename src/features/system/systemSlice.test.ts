@@ -1,4 +1,4 @@
-import { cleanup } from "../../common/test-utils"
+import { cleanup } from "../../test-utils"
 import system, { appIsLoaded, appIsThinking } from "./systemSlice"
 
 afterEach(cleanup)

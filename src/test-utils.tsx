@@ -1,14 +1,12 @@
 // test-utils.tsx
-import React, { FunctionComponent, ReactElement } from "react";
-import {
-  render as rtlRender,
-  RenderOptions,
-  RenderResult,
-} from "@testing-library/react";
-import { queries, Queries } from "@testing-library/dom";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-import { rootReducer, State, Store } from "./app/store";
+import * as React from "react"
+import { Provider } from "react-redux"
+import { createStore } from "redux"
+
+import { queries, Queries } from "@testing-library/dom"
+import { render as rtlRender, RenderOptions, RenderResult } from "@testing-library/react"
+
+import { rootReducer, State, Store } from "./app/store"
 
 type ExtraOptions = {
   initialState?: State;
@@ -19,7 +17,7 @@ const render = <
   Q extends Queries = typeof queries,
   C extends Element | DocumentFragment = HTMLElement
 >(
-  ui: ReactElement,
+  ui: React.ReactElement,
   options: ExtraOptions & RenderOptions<Q, C> = {} //:
 ): RenderResult<Q, C> & { store: Store } => {
   const {
@@ -28,7 +26,11 @@ const render = <
     ...renderOptions
   } = options;
 
-  const Wrapper: FunctionComponent = ({ children }) => {
+  type Props = {
+    children?: React.ReactNode
+  }
+
+  const Wrapper = ({ children }: Props) => {
     return <Provider store={store}>{children}</Provider>;
   };
 
