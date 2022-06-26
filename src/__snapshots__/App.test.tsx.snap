@@ -11,27 +11,31 @@ exports[`App renders a snapshot 1`] = `
       <div
         class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-1t29gy6-MuiToolbar-root"
       >
-        <button
-          aria-label="open drawer"
-          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeLarge css-1qjcvnd-MuiButtonBase-root-MuiIconButton-root"
-          tabindex="0"
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-            data-testid="MenuIcon"
-            focusable="false"
-            viewBox="0 0 24 24"
+        <div>
+          <button
+            aria-haspopup="true"
+            aria-label="menu"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeLarge css-1mrhtuw-MuiButtonBase-root-MuiIconButton-root"
+            id="basic-button"
+            tabindex="0"
+            type="button"
           >
-            <path
-              d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+              data-testid="MenuIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+              />
+            </svg>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
             />
-          </svg>
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
-        </button>
+          </button>
+        </div>
         <div
           class="MuiTypography-root MuiTypography-h6 MuiTypography-noWrap css-1dvstpp-MuiTypography-root"
         >
@@ -56,9 +60,7 @@ exports[`App renders a snapshot 1`] = `
             </svg>
           </div>
           <div
-            aria-expanded="false"
             class="MuiAutocomplete-root css-1bu2955-MuiAutocomplete-root"
-            role="combobox"
             style="width: 400px;"
           >
             <div
@@ -66,11 +68,13 @@ exports[`App renders a snapshot 1`] = `
             >
               <input
                 aria-autocomplete="list"
+                aria-expanded="false"
                 autocapitalize="none"
                 autocomplete="off"
                 class="MuiInputBase-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-yz9k0d-MuiInputBase-input"
                 id="symbol-search"
                 placeholder="Symbol or Name"
+                role="combobox"
                 spellcheck="false"
                 type="text"
                 value=""
