@@ -1,9 +1,7 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  SerializedError,
-} from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "axios"
+
+import { createAsyncThunk, createSlice, SerializedError } from "@reduxjs/toolkit"
+
 // import { AppThunk, RootState } from "../../app/store";
 
 export interface quickenConnectorState {
@@ -23,10 +21,10 @@ const initialState: quickenConnectorState = {
 export const fetchQuickenData = createAsyncThunk(
   "quickenConnector/fetchQuickenData",
   async () => {
-    const rqstPackage = { apiKey: "a12345" };
-    const response = await axios.post(
-      "http://localhost:3001/api/fetch",
-      rqstPackage
+    const rqstPackage = { apiToken: "nCUYlC7G0I77FaZTm0skchNswhAJIdfC0WrUNMcnlsG5G2NDe2VYcyr1EcH52bKV" };
+    const response = await axios.get(
+      "http://localhost:5000/api/v1/quicken",
+      { params: rqstPackage }
     );
     return response.data;
   }
