@@ -8,7 +8,7 @@ import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
 
 import { AppDispatch } from "../../app/store"
-import { fetchQuickenData } from "../quickenConnector/quickenConnectorSlice"
+import { fetchQuickenData } from "../investments/investmentsSlice"
 
 export default function FeatureMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

@@ -1,5 +1,5 @@
 import { cleanup } from "../../test-utils"
-import quickenConnector, { fetchQuickenData, QuickenConnectorState } from "./quickenConnectorSlice"
+import quickenConnector, { fetchQuickenData, QuickenConnectorState } from "./investmentsSlice"
 import fixture from "./quickenParsedData.fixture"
 
 afterEach(cleanup)

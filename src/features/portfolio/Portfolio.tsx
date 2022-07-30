@@ -1,16 +1,17 @@
-import React from "react";
-import { selectPortfolioLoadedStatus } from "./portfolioSlice";
-import { useDispatch, useSelector } from "react-redux";
-import Button from "../../common/Button";
-import { AppDispatch } from "../../app/store";
-import { fetchQuickenData } from "../quickenConnector/quickenConnectorSlice";
+import React from "react"
+import { useDispatch, useSelector } from "react-redux"
+
+import { AppDispatch } from "../../app/store"
+import Button from "../../common/Button"
+import { fetchQuickenData } from "../investments/investmentsSlice"
+import { selectPortfolioLoadedStatus } from "./portfolioSlice"
 
 function Portfolio() {
   const callAlert = () => {
     dispatch(fetchQuickenData());
   };
 
-  let isPortfolioLoaded = useSelector(selectPortfolioLoadedStatus);
+  const isPortfolioLoaded = useSelector(selectPortfolioLoadedStatus);
 
   const dispatch: AppDispatch = useDispatch();
 

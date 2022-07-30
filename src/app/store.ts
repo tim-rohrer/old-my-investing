@@ -1,14 +1,10 @@
-import {
-  combineReducers,
-  configureStore,
-  ThunkAction,
-  Action,
-} from "@reduxjs/toolkit"
-import system from "../features/system/systemSlice"
-import securities from "../features/securities/securitiesSlice"
+import { Action, combineReducers, configureStore, ThunkAction } from "@reduxjs/toolkit"
+
 import companyProfiles from "../features/companyAnalysis/companyProfilesSlice"
+import quickenConnector from "../features/investments/investmentsSlice"
 import portfolio from "../features/portfolio/portfolioSlice"
-import quickenConnector from "../features/quickenConnector/quickenConnectorSlice"
+import securities from "../features/securities/securitiesSlice"
+import system from "../features/system/systemSlice"
 
 export const rootReducer = combineReducers({
   system,

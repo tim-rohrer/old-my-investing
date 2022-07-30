@@ -4,6 +4,7 @@ import {
   createAsyncThunk, createEntityAdapter, createSlice, EntityState, SerializedError,
 } from "@reduxjs/toolkit"
 
+import store, { RootState } from "../../app/store"
 import { InvestmentTransaction } from "./@types"
 
 // import { AppThunk, RootState } from "../../app/store";
@@ -77,6 +78,14 @@ export const quickenConnectorSlice = createSlice({
 
 // Selectors
 // export const selectPortfolioLoadedStatus = (state: RootState) => state.portfolio.isLoaded
+const transactionsSelectors =
+  transactionsAdapter.getSelectors<RootState>(
+    (state) => state.quickenConnector,
+  )
+
+const allTransactions = transactionsSelectors.selectAll(
+  store.getState(),
+)
 
 // Default export
 export default quickenConnectorSlice.reducer
