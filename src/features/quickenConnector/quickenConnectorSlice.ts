@@ -38,7 +38,6 @@ export const fetchQuickenData = createAsyncThunk(
       "http://localhost:5000/api/v1/quicken",
       { params: rqstPackage },
     )
-    console.log(typeof response.data, response.data)
     return response.data
   },
 )
