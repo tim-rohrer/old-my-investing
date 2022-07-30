@@ -1,34 +1,47 @@
 import axios from "axios"
 
-import { createAsyncThunk, createSlice, SerializedError } from "@reduxjs/toolkit"
+import {
+  createAsyncThunk, createEntityAdapter, createSlice, EntityState, SerializedError,
+} from "@reduxjs/toolkit"
+
+import { InvestmentTransaction } from "./@types"
 
 // import { AppThunk, RootState } from "../../app/store";
 
-export interface quickenConnectorState {
-  loading: "idle" | "pending";
-  currentRequestId: string | undefined;
-  error: SerializedError | null;
-  data: { [table: string]: any };
+export interface QuickenConnectorState
+  extends EntityState<InvestmentTransaction> {
+  loading: "idle" | "pending"
+  currentRequestId: string | undefined
+  error: SerializedError | null
 }
 
-const initialState: quickenConnectorState = {
-  loading: "idle",
-  currentRequestId: undefined,
-  error: null,
-  data: {},
-};
+const transactionsAdapter =
+  createEntityAdapter<InvestmentTransaction>({
+    selectId: (transaction) => transaction.transactionId,
+  })
+
+const initialState: QuickenConnectorState =
+  transactionsAdapter.getInitialState({
+    loading: "idle",
+    currentRequestId: undefined,
+    error: null,
+  })
 
 export const fetchQuickenData = createAsyncThunk(
   "quickenConnector/fetchQuickenData",
   async () => {
-    const rqstPackage = { apiToken: "nCUYlC7G0I77FaZTm0skchNswhAJIdfC0WrUNMcnlsG5G2NDe2VYcyr1EcH52bKV" };
+    const rqstPackage = {
+      apiToken:
+        "nCUYlC7G0I77FaZTm0skchNswhAJIdfC0WrUNMcnlsG5G2NDe2VYcyr1EcH52bKV",
+    }
     const response = await axios.get(
       "http://localhost:5000/api/v1/quicken",
-      { params: rqstPackage }
-    );
-    return response.data;
-  }
-);
+      { params: rqstPackage },
+    )
+    console.log(typeof response.data, response.data)
+    return response.data
+  },
+)
 
 export const quickenConnectorSlice = createSlice({
   name: "quickenConnector",
@@ -41,15 +54,12 @@ export const quickenConnectorSlice = createSlice({
           ...state,
           currentRequestId: action.meta.requestId,
           loading: "pending",
-        };
+        }
       })
       .addCase(fetchQuickenData.fulfilled, (state, action) => {
-        return {
-          ...state,
-          loading: "idle",
-          currentRequestId: undefined,
-          data: action.payload,
-        };
+        state.loading = "idle"
+        state.currentRequestId = undefined
+        transactionsAdapter.setAll(state, action.payload)
       })
       .addCase(fetchQuickenData.rejected, (state, action) => {
         return {
@@ -57,9 +67,9 @@ export const quickenConnectorSlice = createSlice({
           loading: "idle",
           error: action.error,
           data: {},
-        };
+        }
       }),
-});
+})
 
 // Actions
 // export const {} = quickenConnectorSlice.actions;
@@ -70,4 +80,4 @@ export const quickenConnectorSlice = createSlice({
 // export const selectPortfolioLoadedStatus = (state: RootState) => state.portfolio.isLoaded
 
 // Default export
-export default quickenConnectorSlice.reducer;
+export default quickenConnectorSlice.reducer
